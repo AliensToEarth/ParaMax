@@ -24,9 +24,25 @@ It's meant to run **alongside** [Sodium](https://modrinth.com/mod/sodium) and [L
 
 ## Being honest about it
 
-Results depend a lot on your hardware and what you're doing. If you've already got a fast CPU and you're running way above your monitor's refresh rate, some of these features are deliberately doing nothing - and that's the point. Where ParaMax earns its keep is **steadier frame times and much better 1% lows when the game gets busy**: clouds of particles, packed-out entity scenes, chunks streaming in. If what you're really after is raw FPS in GPU-bound situations, pair it with a rendering optimizer like Sodium.
+Results depend a lot on your hardware and what you're doing. Where ParaMax earns its keep is **steadier frame times and much better 1% lows when the game gets busy**: clouds of particles, packed-out entity scenes. If what you're really after is raw FPS in GPU-bound situations, pair it with a rendering optimizer like Sodium.
 
 And to be clear: ParaMax doesn't collect or send off any of your data.
+
+## Building from source
+
+ParaMax is a [Fabric Loom](https://fabricmc.net/) project. You'll need **JDK 21**; everything else is pulled in by the Gradle wrapper.
+
+```bash
+git clone https://github.com/AliensToEarth/ParaMax.git
+cd ParaMax
+./gradlew build
+```
+or
+```
+gradle build
+```
+
+The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.0+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 
 ## Something broke?
 

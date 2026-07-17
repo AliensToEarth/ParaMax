@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "paramax",
+  "version": "${version}",
+  "name": "ParaMax",
+  "description": "ParaMax is a free client-side mod for Minecraft which pushes the bleeding edge of the game's performance.",
+  "authors": [
+    "AliensToEarth"
+  ],
+  "license": "ARR",
+  "icon": "assets/paramax/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.alienstoearth.paramax.ParaMaxClient"
+    ],
+    "modmenu": [
+      "dev.alienstoearth.paramax.modmenu.ParaMaxModMenu"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "paramax.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "sodium": "*",
+    "lithium": "*",
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/paramax",
+        "GitHub": "https://github.com/AliensToEarth",
+        "Source": "https://github.com/AliensToEarth/ParaMax"
+      }
+    }
+  }
+}

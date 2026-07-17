@@ -1,0 +1,36 @@
+{
+  "required": true,
+  "package": "dev.alienstoearth.paramax.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "BlockEntityCullingMixin",
+    "BlockEntityStatePoolMixin",
+    "ConcurrentParticleQueueMixin",
+    "CosmeticEntityTickMixin",
+    "DebugHudCacheMixin",
+    "DynamicFpsMixin",
+    "EntityRenderCullingMixin",
+    "EntityRendererInvoker",
+    "EntityStatePoolMixin",
+    "EntityStatePoolRecycleMixin",
+    "FramePacingMixin",
+    "ParallelBlockEntityStateMixin",
+    "ParallelEntityVisibilityMixin",
+    "ParallelParticleTickMixin",
+    "ParticleManagerAccessor",
+    "ParticleSpawnBudgetMixin",
+    "ParticleSpawnDeferMixin",
+    "ParticleThrottleMixin",
+    "PlayerListCacheMixin",
+    "ScoreboardSidebarCacheMixin",
+    "SmartLightmapMixin",
+    "SpikeAnticipationMixin",
+    "TemporalEntityLodMixin",
+    "TextureAnimationRateMixin",
+    "WeatherRenderSkipMixin",
+    "WorkerThreadCountMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,26 @@
+# Gradle / Loom
+.gradle/
+build/
+out/
+run/
+remappedSrc/
+*.log
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+eclipse/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gametest run dir
+run/gametest/

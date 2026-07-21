@@ -16,6 +16,24 @@ Under the hood there's the less glamorous work that tends to matter most for con
 
 Everything here is a toggle, and the numbers behind it - target FPS, worker threads, culling distances, particle limits, how twitchy the governor is - are all adjustable live from the **Mod Menu** screen. No digging through JSON. Don't like something? Turn it off. Want the whole thing gone for a moment? There's one switch for that too.
 
+## Presets
+
+Don't want to touch every setting? There are three preset buttons at the top of the
+config screen, plus a reset:
+
+- **Potato PC** - you get as many frames as possible. Fewer particles, shorter view distances
+  for entities, less detail far away. It won't look as nice - that's the trade.
+- **Balanced preset** - the defaults, with particles and block entities toned down a bit.
+  Good savings, hard to notice.
+- **Lossless** - if looks come first. Everything you can see stays on. ParaMax still
+  helps out if the game starts to struggle.
+- **Set Defaults** - puts everything back to normal.
+
+Presets aren't modes - they just set the same toggles and sliders you can change
+yourself. Pick one, then tweak whatever you want on top.
+
+Frame pacing stays on in all of them. Smooth frames are the whole point.
+
 ## Playing nice with others
 
 ParaMax is **client-side only** - servers neither know nor care whether you're running it. It needs [Fabric API](https://modrinth.com/mod/fabric-api).

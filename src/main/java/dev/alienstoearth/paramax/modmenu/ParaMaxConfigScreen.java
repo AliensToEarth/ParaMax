@@ -1,6 +1,7 @@
 package dev.alienstoearth.paramax.modmenu;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
+import dev.alienstoearth.paramax.config.ParaMaxPreset;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -65,9 +66,12 @@ public final class ParaMaxConfigScreen extends Screen {
     protected void init() {
         int buttonHeight = 20;
         int gap = 4;
+        int gridTop = 56;
+
+        this.addPresetRow(gap);
 
         int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 18;
-        int availableRows = Math.max(1, (this.height - 36 - 40) / (buttonHeight + gap));
+        int availableRows = Math.max(1, (this.height - gridTop - 40) / (buttonHeight + gap));
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
 
@@ -81,7 +85,7 @@ public final class ParaMaxConfigScreen extends Screen {
         for (int i = 0; i < widgets.size(); i++) {
             ClickableWidget widget = widgets.get(i);
             widget.setX(startX + (i % columns) * (buttonWidth + gap));
-            widget.setY(36 + (i / columns) * (buttonHeight + gap));
+            widget.setY(gridTop + (i / columns) * (buttonHeight + gap));
             this.addDrawableChild(widget);
         }
 
@@ -95,6 +99,34 @@ public final class ParaMaxConfigScreen extends Screen {
                 .build());
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close())
                 .dimensions(this.width / 2 + 4, this.height - 27, 150, 20)
+                .build());
+    }
+
+    private void addPresetRow(int gap) {
+        int presetWidth = Math.min(110, (this.width - 20 - gap * 3) / 4);
+        int rowWidth = presetWidth * 4 + gap * 3;
+        int x = this.width / 2 - rowWidth / 2;
+        int y = 30;
+
+        this.addPresetButton("paramax.preset.potato", ParaMaxPreset.POTATO, x, y, presetWidth);
+        this.addPresetButton("paramax.preset.balanced", ParaMaxPreset.BALANCED, x + (presetWidth + gap), y, presetWidth);
+        this.addPresetButton("paramax.preset.quality", ParaMaxPreset.QUALITY, x + (presetWidth + gap) * 2, y, presetWidth);
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("paramax.preset.defaults"), button -> {
+                    ParaMaxConfig cfg = ParaMaxConfig.get();
+                    cfg.resetToDefaults();
+                    cfg.clamp();
+                    this.clearAndInit();
+                })
+                .dimensions(x + (presetWidth + gap) * 3, y, presetWidth, 20)
+                .build());
+    }
+
+    private void addPresetButton(String key, ParaMaxPreset preset, int x, int y, int w) {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable(key), button -> {
+                    preset.apply(ParaMaxConfig.get());
+                    this.clearAndInit();
+                })
+                .dimensions(x, y, w, 20)
                 .build());
     }
 
@@ -144,7 +176,7 @@ public final class ParaMaxConfigScreen extends Screen {
                         () -> cfg.lodNearDistance, v -> cfg.lodNearDistance = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.lod_max_interval", 1, 8, 1, ParaMaxSlider.Format.INT,
                         () -> cfg.lodMaxInterval, v -> cfg.lodMaxInterval = (int) v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.particle_spawn_budget", 250, 8000, 250, ParaMaxSlider.Format.INT,
+                new ParaMaxSlider(0, 0, w, h, "paramax.slider.particle_spawn_budget", 100, 8000, 100, ParaMaxSlider.Format.INT,
                         () -> cfg.particleSpawnBudget, v -> cfg.particleSpawnBudget = (int) v)
         );
     }

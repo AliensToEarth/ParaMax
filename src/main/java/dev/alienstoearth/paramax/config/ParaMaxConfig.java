@@ -148,6 +148,17 @@ public final class ParaMaxConfig {
         }
     }
 
+    public void resetToDefaults() {
+        ParaMaxConfig defaults = new ParaMaxConfig();
+        try {
+            for (java.lang.reflect.Field field : ParaMaxConfig.class.getFields()) {
+                field.set(this, field.get(defaults));
+            }
+        } catch (IllegalAccessException e) {
+            throw new AssertionError(e);
+        }
+    }
+
     public void clamp() {
         if (workerThreadCount < 0) workerThreadCount = 0;
         if (unfocusedFps < 1) unfocusedFps = 1;
@@ -177,7 +188,7 @@ public final class ParaMaxConfig {
         if (lodNearDistance > 64.0) lodNearDistance = 64.0;
         if (lodMaxInterval < 1) lodMaxInterval = 1;
         if (lodMaxInterval > 8) lodMaxInterval = 8;
-        if (particleSpawnBudget < 250) particleSpawnBudget = 250;
+        if (particleSpawnBudget < 100) particleSpawnBudget = 100;
         if (particleSpawnBudget > 16384) particleSpawnBudget = 16384;
     }
 }

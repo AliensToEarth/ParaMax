@@ -6,6 +6,11 @@
   "paramax.nav.numbers": "Расширенная настройка >",
   "paramax.nav.toggles": "< Переключатели функций",
 
+  "paramax.preset.potato": "Картофельный ПК",
+  "paramax.preset.balanced": "Сбалансированный пресет",
+  "paramax.preset.quality": "Без потерь",
+  "paramax.preset.defaults": "По умолчанию",
+
   "paramax.toggle.enabled": "ParaMax включён",
   "paramax.toggle.worker_threads": "Переопределение рабочих потоков",
   "paramax.toggle.dynamic_fps": "Динамический FPS (окно не в фокусе)",

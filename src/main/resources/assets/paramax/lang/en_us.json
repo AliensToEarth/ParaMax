@@ -6,6 +6,11 @@
   "paramax.nav.numbers": "Numeric Tuning >",
   "paramax.nav.toggles": "< Feature Toggles",
 
+  "paramax.preset.potato": "Potato PC",
+  "paramax.preset.balanced": "Balanced preset",
+  "paramax.preset.quality": "Lossless",
+  "paramax.preset.defaults": "Set Defaults",
+
   "paramax.toggle.enabled": "ParaMax Enabled",
   "paramax.toggle.worker_threads": "Worker Thread Override",
   "paramax.toggle.dynamic_fps": "Dynamic FPS (Unfocused)",

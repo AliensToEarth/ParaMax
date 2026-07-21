@@ -38,7 +38,6 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.modrinth": "https://modrinth.com/mod/paramax",
         "GitHub": "https://github.com/AliensToEarth",
         "Source": "https://github.com/AliensToEarth/ParaMax"
       }

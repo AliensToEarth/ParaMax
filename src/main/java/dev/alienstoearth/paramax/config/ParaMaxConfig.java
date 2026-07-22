@@ -68,7 +68,7 @@ public final class ParaMaxConfig {
 
     public boolean poolBlockEntityStates = true;
 
-    public boolean adaptivePerformance = true;
+    public boolean adaptivePerformance = false;
 
     public int targetFps = 60;
 

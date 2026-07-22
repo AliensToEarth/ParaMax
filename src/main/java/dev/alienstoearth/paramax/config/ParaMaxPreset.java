@@ -9,6 +9,7 @@ public enum ParaMaxPreset {
         c.resetToDefaults();
         switch (this) {
             case POTATO -> {
+                c.adaptivePerformance = true;
                 c.particleMultiplier = 0.2;
                 c.maxParticleDistance = 16.0;
                 c.particleSpawnBudget = 100;

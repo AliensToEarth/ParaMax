@@ -16,9 +16,10 @@ public final class PerformanceGovernor {
     private static final int ESCALATE_DWELL = 40;
     private static final int RELAX_DWELL = 200;
 
-    private static final double[] PARTICLE_MULTIPLIER = {1.0, 0.6, 0.35, 0.35, 0.2};
-    private static final double ENTITY_CULL_DISTANCE = 48.0;
-    private static final double BLOCK_ENTITY_CULL_DISTANCE = 32.0;
+    private static final double[] PARTICLE_FACTOR = {1.0, 0.6, 0.35, 0.25, 0.15};
+    private static final double[] ENTITY_DISTANCE_FACTOR = {1.0, 1.0, 0.85, 0.70, 0.55};
+    private static final double[] BLOCK_ENTITY_DISTANCE_FACTOR = {1.0, 1.0, 1.0, 0.80, 0.60};
+    private static final int HALF_RATE_ANIMATION_LEVEL = 3;
     private static final double NO_LIMIT = Double.MAX_VALUE;
 
     private static final double SPIKE_RATIO_THRESHOLD = 0.10;
@@ -149,24 +150,28 @@ public final class PerformanceGovernor {
     }
 
     public static double particleMultiplier(ParaMaxConfig cfg) {
-        double user = cfg.throttleParticles ? cfg.particleMultiplier : 1.0;
-        double governed = active(cfg) ? PARTICLE_MULTIPLIER[level.get()] : 1.0;
-        return Math.min(user, governed);
+        if (!cfg.throttleParticles) {
+            return 1.0;
+        }
+        return cfg.particleMultiplier * (active(cfg) ? PARTICLE_FACTOR[level.get()] : 1.0);
     }
 
     public static boolean halfRateTextureAnimations(ParaMaxConfig cfg) {
-        return cfg.halfRateTextureAnimations || (active(cfg) && level.get() >= 2);
+        return cfg.halfRateTextureAnimations
+                || (active(cfg) && level.get() >= HALF_RATE_ANIMATION_LEVEL);
     }
 
     public static double maxEntityRenderDistance(ParaMaxConfig cfg) {
-        double user = cfg.entityDistanceCulling ? cfg.maxEntityRenderDistance : NO_LIMIT;
-        double governed = active(cfg) && level.get() >= 3 ? ENTITY_CULL_DISTANCE : NO_LIMIT;
-        return Math.min(user, governed);
+        if (!cfg.entityDistanceCulling) {
+            return NO_LIMIT;
+        }
+        return cfg.maxEntityRenderDistance * (active(cfg) ? ENTITY_DISTANCE_FACTOR[level.get()] : 1.0);
     }
 
     public static double maxBlockEntityRenderDistance(ParaMaxConfig cfg) {
-        double user = cfg.blockEntityDistanceCulling ? cfg.maxBlockEntityRenderDistance : NO_LIMIT;
-        double governed = active(cfg) && level.get() >= 4 ? BLOCK_ENTITY_CULL_DISTANCE : NO_LIMIT;
-        return Math.min(user, governed);
+        if (!cfg.blockEntityDistanceCulling) {
+            return NO_LIMIT;
+        }
+        return cfg.maxBlockEntityRenderDistance * (active(cfg) ? BLOCK_ENTITY_DISTANCE_FACTOR[level.get()] : 1.0);
     }
 }

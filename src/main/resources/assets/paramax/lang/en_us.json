@@ -8,8 +8,7 @@
 
   "paramax.preset.potato": "Potato PC",
   "paramax.preset.balanced": "Balanced preset",
-  "paramax.preset.quality": "Lossless",
-  "paramax.preset.defaults": "Set Defaults",
+  "paramax.preset.lossless": "Lossless Defaults",
 
   "paramax.toggle.enabled": "ParaMax Enabled",
   "paramax.toggle.worker_threads": "Worker Thread Override",

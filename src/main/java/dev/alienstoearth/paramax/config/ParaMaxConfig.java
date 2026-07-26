@@ -22,23 +22,23 @@ public final class ParaMaxConfig {
 
     public int unfocusedFps = 10;
 
-    public boolean entityDistanceCulling = true;
+    public boolean entityDistanceCulling = false;
 
     public double maxEntityRenderDistance = 64.0;
 
-    public boolean throttleParticles = true;
+    public boolean throttleParticles = false;
 
-    public double particleMultiplier = 1.0;
+    public double particleMultiplier = 0.6;
 
     public boolean parallelParticles = true;
 
     public int parallelParticleThreshold = 512;
 
-    public boolean blockEntityDistanceCulling = true;
+    public boolean blockEntityDistanceCulling = false;
 
     public double maxBlockEntityRenderDistance = 48.0;
 
-    public boolean skipWeatherRendering = true;
+    public boolean skipWeatherRendering = false;
 
     public boolean parallelBlockEntityStates = true;
 
@@ -48,9 +48,9 @@ public final class ParaMaxConfig {
 
     public int debugHudIntervalMs = 100;
 
-    public boolean halfRateTextureAnimations = true;
+    public boolean halfRateTextureAnimations = false;
 
-    public boolean reduceCosmeticEntityTicks = true;
+    public boolean reduceCosmeticEntityTicks = false;
 
     public boolean throttleMenus = true;
 
@@ -60,7 +60,7 @@ public final class ParaMaxConfig {
 
     public int parallelEntityThreshold = 128;
 
-    public boolean smartLightmap = true;
+    public boolean smartLightmap = false;
 
     public boolean cacheHudText = true;
 
@@ -78,13 +78,13 @@ public final class ParaMaxConfig {
 
     public int pacingMinFps = 30;
 
-    public boolean particleCulling = true;
+    public boolean particleCulling = false;
 
     public double maxParticleDistance = 48.0;
 
     public boolean poolEntityStates = true;
 
-    public boolean temporalEntityLod = true;
+    public boolean temporalEntityLod = false;
 
     public double lodNearDistance = 16.0;
 
@@ -94,7 +94,7 @@ public final class ParaMaxConfig {
 
     public boolean budgetParticleSpawns = true;
 
-    public int particleSpawnBudget = 1000;
+    public int particleSpawnBudget = 4000;
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static volatile ParaMaxConfig instance;

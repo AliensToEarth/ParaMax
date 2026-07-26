@@ -3,22 +3,31 @@ package dev.alienstoearth.paramax.config;
 public enum ParaMaxPreset {
     POTATO,
     BALANCED,
-    QUALITY;
+    LOSSLESS;
 
     public void apply(ParaMaxConfig c) {
         c.resetToDefaults();
         switch (this) {
             case POTATO -> {
-                c.adaptivePerformance = true;
-                c.particleMultiplier = 0.2;
+                c.throttleParticles = true;
+                c.particleMultiplier = 0.25;
+                c.particleCulling = true;
                 c.maxParticleDistance = 16.0;
-                c.particleSpawnBudget = 100;
-                c.maxEntityRenderDistance = 24.0;
-                c.maxBlockEntityRenderDistance = 16.0;
+                c.particleSpawnBudget = 200;
+                c.entityDistanceCulling = true;
+                c.maxEntityRenderDistance = 32.0;
+                c.blockEntityDistanceCulling = true;
+                c.maxBlockEntityRenderDistance = 24.0;
+                c.temporalEntityLod = true;
                 c.lodNearDistance = 8.0;
                 c.lodMaxInterval = 8;
-                c.governorBasePressure = 4;
-                c.targetFps = 240;
+                c.smartLightmap = true;
+                c.halfRateTextureAnimations = true;
+                c.skipWeatherRendering = true;
+                c.reduceCosmeticEntityTicks = true;
+                c.adaptivePerformance = true;
+                c.governorBasePressure = 1;
+                c.targetFps = 60;
                 c.unfocusedFps = 5;
                 c.menuFps = 30;
                 c.debugHudIntervalMs = 500;
@@ -26,23 +35,30 @@ public enum ParaMaxPreset {
                 c.pacingMinFps = 20;
             }
             case BALANCED -> {
+                c.throttleParticles = true;
                 c.particleMultiplier = 0.6;
+                c.particleCulling = true;
                 c.maxParticleDistance = 32.0;
                 c.particleSpawnBudget = 750;
+                c.entityDistanceCulling = true;
                 c.maxEntityRenderDistance = 48.0;
-                c.maxBlockEntityRenderDistance = 32.0;
+                c.blockEntityDistanceCulling = true;
+                c.maxBlockEntityRenderDistance = 40.0;
+                c.temporalEntityLod = true;
+                c.smartLightmap = true;
+                c.reduceCosmeticEntityTicks = true;
             }
-            case QUALITY -> {
-                c.particleMultiplier = 1.0;
-                c.maxParticleDistance = 64.0;
-                c.particleSpawnBudget = 2000;
-                c.maxEntityRenderDistance = 96.0;
-                c.maxBlockEntityRenderDistance = 64.0;
+            case LOSSLESS -> {
+                c.throttleParticles = false;
+                c.particleCulling = false;
+                c.particleSpawnBudget = 4000;
+                c.entityDistanceCulling = false;
+                c.blockEntityDistanceCulling = false;
+                c.temporalEntityLod = false;
+                c.smartLightmap = false;
                 c.halfRateTextureAnimations = false;
                 c.skipWeatherRendering = false;
                 c.reduceCosmeticEntityTicks = false;
-                c.lodNearDistance = 32.0;
-                c.lodMaxInterval = 2;
             }
         }
         c.framePacing = true;

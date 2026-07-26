@@ -8,8 +8,7 @@
 
   "paramax.preset.potato": "Картофельный ПК",
   "paramax.preset.balanced": "Сбалансированный пресет",
-  "paramax.preset.quality": "Без потерь",
-  "paramax.preset.defaults": "По умолчанию",
+  "paramax.preset.lossless": "Без потерь",
 
   "paramax.toggle.enabled": "ParaMax включён",
   "paramax.toggle.worker_threads": "Переопределение рабочих потоков",

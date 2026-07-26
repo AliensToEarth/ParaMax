@@ -103,22 +103,14 @@ public final class ParaMaxConfigScreen extends Screen {
     }
 
     private void addPresetRow(int gap) {
-        int presetWidth = Math.min(110, (this.width - 20 - gap * 3) / 4);
-        int rowWidth = presetWidth * 4 + gap * 3;
+        int presetWidth = Math.min(130, (this.width - 20 - gap * 2) / 3);
+        int rowWidth = presetWidth * 3 + gap * 2;
         int x = this.width / 2 - rowWidth / 2;
         int y = 30;
 
         this.addPresetButton("paramax.preset.potato", ParaMaxPreset.POTATO, x, y, presetWidth);
         this.addPresetButton("paramax.preset.balanced", ParaMaxPreset.BALANCED, x + (presetWidth + gap), y, presetWidth);
-        this.addPresetButton("paramax.preset.quality", ParaMaxPreset.QUALITY, x + (presetWidth + gap) * 2, y, presetWidth);
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("paramax.preset.defaults"), button -> {
-                    ParaMaxConfig cfg = ParaMaxConfig.get();
-                    cfg.resetToDefaults();
-                    cfg.clamp();
-                    this.clearAndInit();
-                })
-                .dimensions(x + (presetWidth + gap) * 3, y, presetWidth, 20)
-                .build());
+        this.addPresetButton("paramax.preset.lossless", ParaMaxPreset.LOSSLESS, x + (presetWidth + gap) * 2, y, presetWidth);
     }
 
     private void addPresetButton(String key, ParaMaxPreset preset, int x, int y, int w) {

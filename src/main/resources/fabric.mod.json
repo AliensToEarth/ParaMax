@@ -3,7 +3,7 @@
   "id": "paramax",
   "version": "${version}",
   "name": "ParaMax",
-  "description": "ParaMax is a free client-side mod for Minecraft which pushes the bleeding edge of the game's performance.",
+  "description": "Client-side mod for Minecraft which pushes the game's performance.",
   "authors": [
     "AliensToEarth"
   ],

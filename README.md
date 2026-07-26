@@ -1,6 +1,6 @@
 # ParaMax
 
-ParaMax is a free, client-side performance mod that cares less about the number in your F3 counter and more about how the game actually *feels* to play. It goes after the stutters, hitches, and uneven pacing that make a session feel rough, and it quietly scales its own effort up or down depending on how hard your machine is working at any given moment.
+ParaMax is a client-side performance mod that cares less about the number in your F3 counter and more about how the game actually *feels* to play. It goes after the stutters, hitches, and uneven pacing that make a session feel rough, and it quietly scales its own effort up or down depending on how hard your machine is working at any given moment.
 
 It's client-side only, it doesn't change how anything looks, and you can tweak all of it from inside the game.
 
@@ -18,21 +18,15 @@ Everything here is a toggle, and the numbers behind it - target FPS, worker thre
 
 ## Presets
 
-Don't want to touch every setting? There are three preset buttons at the top of the
-config screen, plus a reset:
+Don't want to touch every setting? There are three preset buttons at the top of the config screen:
 
-- **Potato PC** - you get as many frames as possible. Fewer particles, shorter view distances
-  for entities, less detail far away. It won't look as nice - that's the trade.
-- **Balanced preset** - the defaults, with particles and block entities toned down a bit.
-  Good savings, hard to notice.
-- **Lossless** - if looks come first. Everything you can see stays on. ParaMax still
-  helps out if the game starts to struggle.
-- **Set Defaults** - puts everything back to normal.
+- **Potato PC** - you get as many frames as possible. Fewer particles, shorter view distances for entities, less detail far away. It won't look as nice - that's the trade. This is the only preset that watches your FPS and tightens things further when your PC is struggling, then eases back off once you're not.
+- **Balanced preset** - real savings you'd struggle to spot. Particles trimmed, entities and block entities dropped past a comfortable distance, less detail on far-away things. Rain and texture animations are left exactly as they are.
+- **Lossless Defaults** - nothing you can see changes. Culling, particle limits and distant detail reduction are all switched off, but the invisible work carries on: **frame pacing** is still smoothing out your frames, render objects still get reused instead of getting rebuilt every frame, text still gets cached, and work still spreads across spare cores. So this isn't ParaMax doing nothing - it's ParaMax doing everything that costs you nothing visually. This is how the mod ships, so a fresh install never changes how your game looks, and the button doubles as your config reset for a mod.
 
-Presets aren't modes - they just set the same toggles and sliders you can change
-yourself. Pick one, then tweak whatever you want on top.
+Presets aren't modes - they just set the same toggles and sliders you can change yourself. Pick one, then tweak whatever you want on top.
 
-Frame pacing stays on in all of them. Smooth frames are the whole point.
+**Frame pacing stays on in all of them. Smooth frames are the whole point.**
 
 ## Playing nice with others
 

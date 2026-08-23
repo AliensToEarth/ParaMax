@@ -1,13 +1,13 @@
 package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.effect.MobEffects;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LightmapTextureManager.class)
+@Mixin(LightTexture.class)
 public abstract class SmartLightmapMixin {
 
-    @Shadow @Final private MinecraftClient client;
-    @Shadow private boolean dirty;
-    @Shadow private float flickerIntensity;
+    @Shadow @Final private Minecraft minecraft;
+    @Shadow private boolean updateLightTexture;
+    @Shadow private float blockLightRedFlicker;
 
     @Unique private long paramax$lastFingerprint = Long.MIN_VALUE;
 
@@ -32,41 +32,41 @@ public abstract class SmartLightmapMixin {
             return;
         }
         ci.cancel();
-        this.flickerIntensity = 0.0F;
+        this.blockLightRedFlicker = 0.0F;
 
-        ClientWorld world = this.client.world;
-        ClientPlayerEntity player = this.client.player;
+        ClientLevel world = this.minecraft.level;
+        LocalPlayer player = this.minecraft.player;
         if (world == null || player == null) {
-            this.dirty = true;
+            this.updateLightTexture = true;
             this.paramax$lastFingerprint = Long.MIN_VALUE;
             return;
         }
 
-        boolean volatileState = player.hasStatusEffect(StatusEffects.NIGHT_VISION)
-                || player.hasStatusEffect(StatusEffects.DARKNESS)
-                || (player.getUnderwaterVisibility() > 0.0F && player.hasStatusEffect(StatusEffects.CONDUIT_POWER))
-                || world.getEndLightFlashManager() != null;
+        boolean volatileState = player.hasEffect(MobEffects.NIGHT_VISION)
+                || player.hasEffect(MobEffects.DARKNESS)
+                || (player.getWaterVision() > 0.0F && player.hasEffect(MobEffects.CONDUIT_POWER))
+                || world.endFlashState() != null;
         if (volatileState) {
-            this.dirty = true;
+            this.updateLightTexture = true;
             this.paramax$lastFingerprint = Long.MIN_VALUE;
             return;
         }
 
-        Camera camera = this.client.gameRenderer.getCamera();
-        int skyColor = camera.getEnvironmentAttributeInterpolator()
-                .get(EnvironmentAttributes.SKY_LIGHT_COLOR_VISUAL, 1.0F);
-        float skyFactor = camera.getEnvironmentAttributeInterpolator()
-                .get(EnvironmentAttributes.SKY_LIGHT_FACTOR_VISUAL, 1.0F);
+        Camera camera = this.minecraft.gameRenderer.getMainCamera();
+        int skyColor = camera.attributeProbe()
+                .getValue(EnvironmentAttributes.SKY_LIGHT_COLOR, 1.0F);
+        float skyFactor = camera.attributeProbe()
+                .getValue(EnvironmentAttributes.SKY_LIGHT_FACTOR, 1.0F);
 
         long fingerprint = skyColor;
         fingerprint = fingerprint * 31 + Math.round(skyFactor * 1024.0F);
-        fingerprint = fingerprint * 31 + Float.floatToIntBits(world.getDimension().ambientLight());
-        fingerprint = fingerprint * 31 + Math.round(this.client.options.getGamma().getValue().floatValue() * 1024.0F);
-        fingerprint = fingerprint * 31 + Math.round(player.getUnderwaterVisibility() * 64.0F);
+        fingerprint = fingerprint * 31 + Float.floatToIntBits(world.dimensionType().ambientLight());
+        fingerprint = fingerprint * 31 + Math.round(this.minecraft.options.gamma().get().floatValue() * 1024.0F);
+        fingerprint = fingerprint * 31 + Math.round(player.getWaterVision() * 64.0F);
 
         if (fingerprint != this.paramax$lastFingerprint) {
             this.paramax$lastFingerprint = fingerprint;
-            this.dirty = true;
+            this.updateLightTexture = true;
         }
     }
 }

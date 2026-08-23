@@ -1,9 +1,6 @@
 package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.DebugHud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,17 +11,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
 
-@Mixin(DebugHud.class)
+@Mixin(DebugScreenOverlay.class)
 public abstract class DebugHudCacheMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final private Minecraft minecraft;
 
-    @Shadow protected abstract void drawText(DrawContext context, List<String> text, boolean left);
+    @Shadow protected abstract void renderLines(GuiGraphics context, List<String> text, boolean left);
 
-    @Shadow public abstract boolean shouldShowRenderingChart();
+    @Shadow public abstract boolean showProfilerChart();
 
-    @Shadow public abstract boolean shouldRenderTickCharts();
+    @Shadow public abstract boolean showFpsCharts();
 
     @Unique private List<String> paramax$cachedLeft;
     @Unique private List<String> paramax$cachedRight;
@@ -32,13 +32,13 @@ public abstract class DebugHudCacheMixin {
     @Unique private boolean paramax$drawingCached;
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void paramax$serveCached(DrawContext context, CallbackInfo ci) {
+    private void paramax$serveCached(GuiGraphics context, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.throttleDebugHud) {
             return;
         }
 
-        if (this.shouldShowRenderingChart() || this.shouldRenderTickCharts()) {
+        if (this.showProfilerChart() || this.showFpsCharts()) {
             return;
         }
         long now = System.currentTimeMillis();
@@ -46,27 +46,27 @@ public abstract class DebugHudCacheMixin {
             return;
         }
 
-        if (!this.client.isFinishedLoading()
-                || (this.client.options.hudHidden && this.client.currentScreen == null)
-                || this.client.debugHudEntryList.getVisibleEntries().isEmpty()) {
+        if (!this.minecraft.isGameLoadFinished()
+                || (this.minecraft.options.hideGui && this.minecraft.screen == null)
+                || this.minecraft.debugEntries.getCurrentlyEnabled().isEmpty()) {
             this.paramax$cachedLeft = null;
             this.paramax$cachedRight = null;
             return;
         }
 
         ci.cancel();
-        context.createNewRootLayer();
+        context.nextStratum();
         this.paramax$drawingCached = true;
         try {
-            this.drawText(context, this.paramax$cachedLeft, true);
-            this.drawText(context, this.paramax$cachedRight, false);
+            this.renderLines(context, this.paramax$cachedLeft, true);
+            this.renderLines(context, this.paramax$cachedRight, false);
         } finally {
             this.paramax$drawingCached = false;
         }
     }
 
-    @Inject(method = "drawText", at = @At("HEAD"))
-    private void paramax$capture(DrawContext context, List<String> text, boolean left, CallbackInfo ci) {
+    @Inject(method = "renderLines", at = @At("HEAD"))
+    private void paramax$capture(GuiGraphics context, List<String> text, boolean left, CallbackInfo ci) {
         if (this.paramax$drawingCached) {
             return;
         }

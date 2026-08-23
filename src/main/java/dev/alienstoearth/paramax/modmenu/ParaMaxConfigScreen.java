@@ -2,17 +2,16 @@ package dev.alienstoearth.paramax.modmenu;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.config.ParaMaxPreset;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.CyclingButtonWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
-
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 
 public final class ParaMaxConfigScreen extends Screen {
 
@@ -54,7 +53,7 @@ public final class ParaMaxConfigScreen extends Screen {
     private int page = PAGE_TOGGLES;
 
     public ParaMaxConfigScreen(Screen parent) {
-        super(Text.translatable("paramax.options.title"));
+        super(Component.translatable("paramax.options.title"));
         this.parent = parent;
     }
 
@@ -71,7 +70,7 @@ public final class ParaMaxConfigScreen extends Screen {
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
 
-        List<ClickableWidget> widgets = this.page == PAGE_TOGGLES
+        List<AbstractWidget> widgets = this.page == PAGE_TOGGLES
                 ? this.buildToggles(buttonWidth, buttonHeight)
                 : this.buildSliders(buttonWidth, buttonHeight);
 
@@ -79,22 +78,22 @@ public final class ParaMaxConfigScreen extends Screen {
         int startX = this.width / 2 - gridWidth / 2;
 
         for (int i = 0; i < widgets.size(); i++) {
-            ClickableWidget widget = widgets.get(i);
+            AbstractWidget widget = widgets.get(i);
             widget.setX(startX + (i % columns) * (buttonWidth + gap));
             widget.setY(gridTop + (i / columns) * (buttonHeight + gap));
-            this.addDrawableChild(widget);
+            this.addRenderableWidget(widget);
         }
 
-        Text otherPage = Text.translatable(
+        Component otherPage = Component.translatable(
                 this.page == PAGE_TOGGLES ? "paramax.nav.numbers" : "paramax.nav.toggles");
-        this.addDrawableChild(ButtonWidget.builder(otherPage, button -> {
+        this.addRenderableWidget(Button.builder(otherPage, button -> {
                     this.page = this.page == PAGE_TOGGLES ? PAGE_NUMBERS : PAGE_TOGGLES;
-                    this.clearAndInit();
+                    this.rebuildWidgets();
                 })
-                .dimensions(this.width / 2 - 154, this.height - 27, 150, 20)
+                .bounds(this.width / 2 - 154, this.height - 27, 150, 20)
                 .build());
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close())
-                .dimensions(this.width / 2 + 4, this.height - 27, 150, 20)
+        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose())
+                .bounds(this.width / 2 + 4, this.height - 27, 150, 20)
                 .build());
     }
 
@@ -110,24 +109,24 @@ public final class ParaMaxConfigScreen extends Screen {
     }
 
     private void addPresetButton(String key, ParaMaxPreset preset, int x, int y, int w) {
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable(key), button -> {
+        this.addRenderableWidget(Button.builder(Component.translatable(key), button -> {
                     preset.apply(ParaMaxConfig.get());
-                    this.clearAndInit();
+                    this.rebuildWidgets();
                 })
-                .dimensions(x, y, w, 20)
+                .bounds(x, y, w, 20)
                 .build());
     }
 
-    private List<ClickableWidget> buildToggles(int w, int h) {
+    private List<AbstractWidget> buildToggles(int w, int h) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         return TOGGLES.stream()
-                .<ClickableWidget>map(toggle -> CyclingButtonWidget.onOffBuilder(toggle.getter().apply(cfg))
-                        .build(0, 0, w, h, Text.translatable(toggle.key()),
+                .<AbstractWidget>map(toggle -> CycleButton.onOffBuilder(toggle.getter().apply(cfg))
+                        .create(0, 0, w, h, Component.translatable(toggle.key()),
                                 (button, value) -> toggle.flipper().accept(ParaMaxConfig.get())))
                 .toList();
     }
 
-    private List<ClickableWidget> buildSliders(int w, int h) {
+    private List<AbstractWidget> buildSliders(int w, int h) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         return List.of(
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.target_fps", 20, 240, 5, ParaMaxSlider.Format.FPS,
@@ -166,17 +165,17 @@ public final class ParaMaxConfigScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         super.render(context, mouseX, mouseY, deltaTicks);
-        Text pageName = Text.translatable(
+        Component pageName = Component.translatable(
                 this.page == PAGE_TOGGLES ? "paramax.page.toggles" : "paramax.page.numbers");
-        context.drawCenteredTextWithShadow(this.textRenderer,
-                Text.translatable("paramax.options.header", pageName), this.width / 2, 15, 0xFFFFFFFF);
+        context.drawCenteredString(this.font,
+                Component.translatable("paramax.options.header", pageName), this.width / 2, 15, 0xFFFFFFFF);
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         ParaMaxConfig.get().save();
-        this.client.setScreen(this.parent);
+        this.minecraft.setScreen(this.parent);
     }
 }

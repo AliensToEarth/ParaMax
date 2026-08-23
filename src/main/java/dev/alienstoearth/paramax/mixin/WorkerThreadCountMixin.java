@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Util.class)
 public class WorkerThreadCountMixin {
 
-    @Inject(method = "getMaxBackgroundThreads", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getMaxThreads", at = @At("HEAD"), cancellable = true)
     private static void paramax$override(CallbackInfoReturnable<Integer> cir) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.tuneWorkerThreads || cfg.workerThreadCount <= 0) {

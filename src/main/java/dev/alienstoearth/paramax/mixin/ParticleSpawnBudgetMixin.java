@@ -2,7 +2,7 @@ package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.ParticleEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Queue;
 
-@Mixin(ParticleManager.class)
+@Mixin(ParticleEngine.class)
 public abstract class ParticleSpawnBudgetMixin {
 
     @Unique private int paramax$spawnedThisTick;

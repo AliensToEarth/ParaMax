@@ -2,10 +2,10 @@ package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.governor.PerformanceGovernor;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@Mixin(ParticleManager.class)
+@Mixin(ParticleEngine.class)
 public class ParticleThrottleMixin {
 
-    @Inject(method = "addParticle(Lnet/minecraft/client/particle/Particle;)V",
+    @Inject(method = "add(Lnet/minecraft/client/particle/Particle;)V",
             at = @At("HEAD"), cancellable = true)
     private void paramax$throttle(Particle particle, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
@@ -41,11 +41,11 @@ public class ParticleThrottleMixin {
 
     @Unique
     private static boolean paramax$beyondCullDistance(Particle particle, double max) {
-        var camera = MinecraftClient.getInstance().gameRenderer.getCamera();
-        if (camera == null || !camera.isReady()) {
+        var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        if (camera == null || !camera.isInitialized()) {
             return false;
         }
-        Vec3d center = particle.getBoundingBox().getCenter();
-        return camera.getCameraPos().squaredDistanceTo(center) > max * max;
+        Vec3 center = particle.getBoundingBox().getCenter();
+        return camera.position().distanceToSqr(center) > max * max;
     }
 }

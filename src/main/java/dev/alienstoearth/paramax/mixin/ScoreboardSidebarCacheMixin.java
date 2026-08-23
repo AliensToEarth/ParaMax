@@ -1,18 +1,6 @@
 package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardEntry;
-import net.minecraft.scoreboard.ScoreboardObjective;
-import net.minecraft.scoreboard.Team;
-import net.minecraft.scoreboard.number.NumberFormat;
-import net.minecraft.scoreboard.number.StyledNumberFormat;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,28 +12,40 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.numbers.NumberFormat;
+import net.minecraft.network.chat.numbers.StyledFormat;
+import net.minecraft.util.CommonColors;
+import net.minecraft.world.scores.Objective;
+import net.minecraft.world.scores.PlayerScoreEntry;
+import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.scores.Scoreboard;
 
-@Mixin(InGameHud.class)
+@Mixin(Gui.class)
 public abstract class   ScoreboardSidebarCacheMixin {
 
-    @Shadow @Final private MinecraftClient client;
-    @Shadow @Final private static Comparator<ScoreboardEntry> SCOREBOARD_ENTRY_COMPARATOR;
+    @Shadow @Final private Minecraft minecraft;
+    @Shadow @Final private static Comparator<PlayerScoreEntry> SCORE_DISPLAY_ORDER;
 
-    @Shadow public abstract TextRenderer getTextRenderer();
+    @Shadow public abstract Font getFont();
 
-    @Unique private record ParamaxSidebarLine(Text name, Text score, int scoreWidth) {
+    @Unique private record ParamaxSidebarLine(Component name, Component score, int scoreWidth) {
     }
 
-    @Unique private ScoreboardObjective paramax$cachedObjective;
+    @Unique private Objective paramax$cachedObjective;
     @Unique private long paramax$lastBuildMs;
     @Unique private List<ParamaxSidebarLine> paramax$lines;
-    @Unique private Text paramax$title;
+    @Unique private Component paramax$title;
     @Unique private int paramax$titleWidth;
     @Unique private int paramax$maxWidth;
 
-    @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/scoreboard/ScoreboardObjective;)V",
+    @Inject(method = "displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V",
             at = @At("HEAD"), cancellable = true)
-    private void paramax$cachedSidebar(DrawContext context, ScoreboardObjective objective, CallbackInfo ci) {
+    private void paramax$cachedSidebar(GuiGraphics context, Objective objective, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.cacheHudText) {
             return;
@@ -65,50 +65,50 @@ public abstract class   ScoreboardSidebarCacheMixin {
         int maxWidth = this.paramax$maxWidth;
         int count = lines.size();
         int height = count * 9;
-        int bottom = context.getScaledWindowHeight() / 2 + height / 3;
-        int left = context.getScaledWindowWidth() - maxWidth - 3;
-        int right = context.getScaledWindowWidth() - 3 + 2;
-        int bodyColor = this.client.options.getTextBackgroundColor(0.3F);
-        int titleColor = this.client.options.getTextBackgroundColor(0.4F);
+        int bottom = context.guiHeight() / 2 + height / 3;
+        int left = context.guiWidth() - maxWidth - 3;
+        int right = context.guiWidth() - 3 + 2;
+        int bodyColor = this.minecraft.options.getBackgroundColor(0.3F);
+        int titleColor = this.minecraft.options.getBackgroundColor(0.4F);
         int top = bottom - count * 9;
         context.fill(left - 2, top - 9 - 1, right, top - 1, titleColor);
         context.fill(left - 2, top - 1, right, bottom, bodyColor);
-        context.drawText(this.getTextRenderer(), this.paramax$title,
-                left + maxWidth / 2 - this.paramax$titleWidth / 2, top - 9, Colors.WHITE, false);
+        context.drawString(this.getFont(), this.paramax$title,
+                left + maxWidth / 2 - this.paramax$titleWidth / 2, top - 9, CommonColors.WHITE, false);
 
         for (int i = 0; i < count; i++) {
             ParamaxSidebarLine line = lines.get(i);
             int y = bottom - (count - i) * 9;
-            context.drawText(this.getTextRenderer(), line.name(), left, y, Colors.WHITE, false);
-            context.drawText(this.getTextRenderer(), line.score(),
-                    right - line.scoreWidth(), y, Colors.WHITE, false);
+            context.drawString(this.getFont(), line.name(), left, y, CommonColors.WHITE, false);
+            context.drawString(this.getFont(), line.score(),
+                    right - line.scoreWidth(), y, CommonColors.WHITE, false);
         }
     }
 
     @Unique
-    private void paramax$rebuild(ScoreboardObjective objective) {
+    private void paramax$rebuild(Objective objective) {
         Scoreboard scoreboard = objective.getScoreboard();
-        NumberFormat numberFormat = objective.getNumberFormatOr(StyledNumberFormat.RED);
+        NumberFormat numberFormat = objective.numberFormatOrDefault(StyledFormat.SIDEBAR_DEFAULT);
 
         List<ParamaxSidebarLine> lines = new ArrayList<>(15);
-        scoreboard.getScoreboardEntries(objective)
+        scoreboard.listPlayerScores(objective)
                 .stream()
-                .filter(score -> !score.hidden())
-                .sorted(SCOREBOARD_ENTRY_COMPARATOR)
+                .filter(score -> !score.isHidden())
+                .sorted(SCORE_DISPLAY_ORDER)
                 .limit(15L)
                 .forEach(entry -> {
-                    Team team = scoreboard.getScoreHolderTeam(entry.owner());
-                    Text name = Team.decorateName(team, entry.name());
-                    Text score = entry.formatted(numberFormat);
-                    lines.add(new ParamaxSidebarLine(name, score, this.getTextRenderer().getWidth(score)));
+                    PlayerTeam team = scoreboard.getPlayersTeam(entry.owner());
+                    Component name = PlayerTeam.formatNameForTeam(team, entry.ownerName());
+                    Component score = entry.formatValue(numberFormat);
+                    lines.add(new ParamaxSidebarLine(name, score, this.getFont().width(score)));
                 });
 
-        Text title = objective.getDisplayName();
-        int titleWidth = this.getTextRenderer().getWidth(title);
+        Component title = objective.getDisplayName();
+        int titleWidth = this.getFont().width(title);
         int maxWidth = titleWidth;
-        int separatorWidth = this.getTextRenderer().getWidth(": ");
+        int separatorWidth = this.getFont().width(": ");
         for (ParamaxSidebarLine line : lines) {
-            maxWidth = Math.max(maxWidth, this.getTextRenderer().getWidth(line.name())
+            maxWidth = Math.max(maxWidth, this.getFont().width(line.name())
                     + (line.scoreWidth() > 0 ? separatorWidth + line.scoreWidth() : 0));
         }
 

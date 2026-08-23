@@ -3,7 +3,6 @@ package dev.alienstoearth.paramax.mixin;
 import dev.alienstoearth.paramax.ParaMaxState;
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.governor.PerformanceGovernor;
-import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,8 +10,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
+import net.minecraft.client.Minecraft;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public abstract class FramePacingMixin {
 
     @Unique private static final int WINDOW = 64;
@@ -35,7 +35,7 @@ public abstract class FramePacingMixin {
     @Unique private long paramax$target;
     @Unique private double paramax$workEma;
 
-    @Inject(method = "render", at = @At("HEAD"))
+    @Inject(method = "runTick", at = @At("HEAD"))
     private void paramax$pace(boolean tick, CallbackInfo ci) {
         ParaMaxState.frames++;
 
@@ -45,9 +45,9 @@ public abstract class FramePacingMixin {
             return;
         }
 
-        MinecraftClient client = (MinecraftClient) (Object) this;
-        boolean throttled = !client.isWindowFocused()
-                || (client.currentScreen != null && (client.world == null || client.isPaused()));
+        Minecraft client = (Minecraft) (Object) this;
+        boolean throttled = !client.isWindowActive()
+                || (client.screen != null && (client.level == null || client.isPaused()));
 
         long now = System.nanoTime();
         if (throttled) {
@@ -82,7 +82,7 @@ public abstract class FramePacingMixin {
             }
         }
 
-        if (!cfg.framePacing || client.world == null || paramax$count < WINDOW) {
+        if (!cfg.framePacing || client.level == null || paramax$count < WINDOW) {
             paramax$lastStart = now;
             ParaMaxState.pacingTargetNanos = 0L;
             return;

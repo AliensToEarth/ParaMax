@@ -1,10 +1,9 @@
 package dev.alienstoearth.paramax.parallel;
 
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.entity.Entity;
-
 import java.util.IdentityHashMap;
 import java.util.Map;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.world.entity.Entity;
 
 public final class TemporalLodCache {
 

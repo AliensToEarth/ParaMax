@@ -2,9 +2,8 @@ package dev.alienstoearth.paramax.governor;
 
 import dev.alienstoearth.paramax.ParaMaxClient;
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
-import net.minecraft.client.MinecraftClient;
-
 import java.util.concurrent.atomic.AtomicInteger;
+import net.minecraft.client.Minecraft;
 
 public final class PerformanceGovernor {
 
@@ -71,7 +70,7 @@ public final class PerformanceGovernor {
         return (double) spikes / frameCount;
     }
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.adaptivePerformance) {
             if (level.get() != 0) {
@@ -79,18 +78,18 @@ public final class PerformanceGovernor {
             }
             return;
         }
-        if (client.world == null) {
+        if (client.level == null) {
             reset();
             return;
         }
-        if (!client.isWindowFocused() || client.currentScreen != null || client.isPaused()) {
+        if (!client.isWindowActive() || client.screen != null || client.isPaused()) {
 
             belowTicks = 0;
             aboveTicks = 0;
             return;
         }
 
-        int fps = client.getCurrentFps();
+        int fps = client.getFps();
         if (fps <= 0) {
             return;
         }

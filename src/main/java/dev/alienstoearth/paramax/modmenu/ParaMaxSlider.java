@@ -1,12 +1,11 @@
 package dev.alienstoearth.paramax.modmenu;
 
-import net.minecraft.client.gui.widget.SliderWidget;
-import net.minecraft.text.Text;
-
 import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
+import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.network.chat.Component;
 
-final class ParaMaxSlider extends SliderWidget {
+final class ParaMaxSlider extends AbstractSliderButton {
 
     enum Format {
         INT,
@@ -27,7 +26,7 @@ final class ParaMaxSlider extends SliderWidget {
     ParaMaxSlider(int x, int y, int width, int height, String labelKey,
                   double min, double max, double step, Format format,
                   DoubleSupplier getter, DoubleConsumer setter) {
-        super(x, y, width, height, Text.empty(),
+        super(x, y, width, height, Component.empty(),
                 (clamp(getter.getAsDouble(), min, max) - min) / (max - min));
         this.labelKey = labelKey;
         this.min = min;
@@ -50,17 +49,17 @@ final class ParaMaxSlider extends SliderWidget {
     @Override
     protected void updateMessage() {
         double v = this.realValue();
-        Text shown = switch (this.format) {
-            case INT -> Text.literal(String.valueOf((int) v));
+        Component shown = switch (this.format) {
+            case INT -> Component.literal(String.valueOf((int) v));
             case INT_OR_AUTO -> (int) v == 0
-                    ? Text.translatable("paramax.value.auto")
-                    : Text.literal(String.valueOf((int) v));
-            case PERCENT -> Text.translatable("paramax.unit.percent", (int) Math.round(v * 100.0));
-            case BLOCKS -> Text.translatable("paramax.unit.blocks", (int) v);
-            case MILLISECONDS -> Text.translatable("paramax.unit.milliseconds", (int) v);
-            case FPS -> Text.translatable("paramax.unit.fps", (int) v);
+                    ? Component.translatable("paramax.value.auto")
+                    : Component.literal(String.valueOf((int) v));
+            case PERCENT -> Component.translatable("paramax.unit.percent", (int) Math.round(v * 100.0));
+            case BLOCKS -> Component.translatable("paramax.unit.blocks", (int) v);
+            case MILLISECONDS -> Component.translatable("paramax.unit.milliseconds", (int) v);
+            case FPS -> Component.translatable("paramax.unit.fps", (int) v);
         };
-        this.setMessage(Text.translatable("paramax.slider.entry", Text.translatable(this.labelKey), shown));
+        this.setMessage(Component.translatable("paramax.slider.entry", Component.translatable(this.labelKey), shown));
     }
 
     @Override

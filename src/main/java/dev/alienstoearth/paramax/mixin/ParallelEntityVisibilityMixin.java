@@ -2,17 +2,6 @@ package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.parallel.ParallelEngine;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.Frustum;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.entity.EntityRenderManager;
-import net.minecraft.client.render.state.WorldRenderState;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,20 +16,31 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public abstract class ParallelEntityVisibilityMixin {
 
-    @Shadow @Final private MinecraftClient client;
-    @Shadow @Final private EntityRenderManager entityRenderManager;
-    @Shadow private ClientWorld world;
+    @Shadow @Final private Minecraft minecraft;
+    @Shadow @Final private EntityRenderDispatcher entityRenderDispatcher;
+    @Shadow private ClientLevel level;
 
     @Unique
     private final Map<Entity, Boolean> paramax$visibility = new IdentityHashMap<>();
 
-    @Inject(method = "fillEntityRenderStates", at = @At("HEAD"))
-    private void paramax$prepass(Camera camera, Frustum frustum, RenderTickCounter tickCounter,
-                                 WorldRenderState renderStates, CallbackInfo ci) {
+    @Inject(method = "extractVisibleEntities", at = @At("HEAD"))
+    private void paramax$prepass(Camera camera, Frustum frustum, DeltaTracker tickCounter,
+                                 LevelRenderState renderStates, CallbackInfo ci) {
         this.paramax$visibility.clear();
 
         ParaMaxConfig cfg = ParaMaxConfig.get();
@@ -49,7 +49,7 @@ public abstract class ParallelEntityVisibilityMixin {
         }
 
         List<Entity> entities = new ArrayList<>(256);
-        for (Entity entity : this.world.getEntities()) {
+        for (Entity entity : this.level.entitiesForRendering()) {
             entities.add(entity);
         }
         int n = entities.size();
@@ -57,14 +57,14 @@ public abstract class ParallelEntityVisibilityMixin {
             return;
         }
 
-        Entity.setRenderDistanceMultiplier(
-                MathHelper.clamp(this.client.options.getClampedViewDistance() / 8.0, 1.0, 2.5)
-                        * this.client.options.getEntityDistanceScaling().getValue());
+        Entity.setViewScale(
+                Mth.clamp(this.minecraft.options.getEffectiveRenderDistance() / 8.0, 1.0, 2.5)
+                        * this.minecraft.options.entityDistanceScaling().get());
 
-        Vec3d cameraPos = camera.getCameraPos();
-        double x = cameraPos.getX();
-        double y = cameraPos.getY();
-        double z = cameraPos.getZ();
+        Vec3 cameraPos = camera.position();
+        double x = cameraPos.x();
+        double y = cameraPos.y();
+        double z = cameraPos.z();
 
         boolean[] visible = new boolean[n];
         int workers = Math.max(1, ParallelEngine.workerCount());
@@ -77,7 +77,7 @@ public abstract class ParallelEntityVisibilityMixin {
             futures.add(CompletableFuture.runAsync(() -> {
                 for (int i = lo; i < hi; i++) {
                     try {
-                        visible[i] = this.entityRenderManager.shouldRender(entities.get(i), frustum, x, y, z);
+                        visible[i] = this.entityRenderDispatcher.shouldRender(entities.get(i), frustum, x, y, z);
                     } catch (Throwable t) {
                         visible[i] = true;
                     }
@@ -91,10 +91,10 @@ public abstract class ParallelEntityVisibilityMixin {
         }
     }
 
-    @Redirect(method = "fillEntityRenderStates",
+    @Redirect(method = "extractVisibleEntities",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/entity/EntityRenderManager;shouldRender(Lnet/minecraft/entity/Entity;Lnet/minecraft/client/render/Frustum;DDD)Z"))
-    private boolean paramax$lookup(EntityRenderManager manager, Entity entity, Frustum frustum,
+                    target = "Lnet/minecraft/client/renderer/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z"))
+    private boolean paramax$lookup(EntityRenderDispatcher manager, Entity entity, Frustum frustum,
                                    double x, double y, double z) {
         Boolean cached = this.paramax$visibility.get(entity);
         return cached != null ? cached : manager.shouldRender(entity, frustum, x, y, z);

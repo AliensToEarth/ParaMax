@@ -52,7 +52,6 @@ public final class ParaMaxConfig {
 
     public int parallelEntityThreshold = 128;
 
-    public boolean smartLightmap = false;
 
     public boolean cacheHudText = true;
 

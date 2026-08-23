@@ -101,7 +101,7 @@ cd ParaMax
 ./gradlew build
 ```
 
-The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
+The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2.1+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 
 ---
 

@@ -30,10 +30,6 @@ public final class ParaMaxConfig {
 
     public double particleMultiplier = 0.6;
 
-    public boolean parallelParticles = true;
-
-    public int parallelParticleThreshold = 512;
-
     public boolean blockEntityDistanceCulling = false;
 
     public double maxBlockEntityRenderDistance = 48.0;
@@ -158,7 +154,6 @@ public final class ParaMaxConfig {
         if (maxEntityRenderDistance < 8.0) maxEntityRenderDistance = 8.0;
         if (particleMultiplier < 0.0) particleMultiplier = 0.0;
         if (particleMultiplier > 1.0) particleMultiplier = 1.0;
-        if (parallelParticleThreshold < 64) parallelParticleThreshold = 64;
         if (maxBlockEntityRenderDistance < 8.0) maxBlockEntityRenderDistance = 8.0;
         if (debugHudIntervalMs < 16) debugHudIntervalMs = 16;
         if (debugHudIntervalMs > 1000) debugHudIntervalMs = 1000;

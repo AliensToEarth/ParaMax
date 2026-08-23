@@ -44,7 +44,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Worker Thread Override | On | Lets you override the size of Minecraft's background thread pool. On by default.                                              |
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
-| Parallel Particles | On | Ticks large particle sheets across spare CPU cores.                                                                           |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
 | Cache F3 Debug Text | On | Rebuilds the F3 overlay a few times a second instead of every single frame.                                                   |
 | Cache HUD Text | On | Caches the scoreboard sidebar and tab-list ordering. Drawing stays live, so pings and names still update.                     |
@@ -88,7 +87,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | LOD Near Distance | 16 blocks | Entities closer than this always update every frame. |
 | LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
 | Worker Threads | auto | Size of ParaMax's own thread pool. Auto means your core count minus one. |
-| Parallel Particle Threshold | 512 | How many particles a sheet needs before the work is spread across cores. |
 | Parallel Entity Threshold | 128 | How many entities before visibility work is spread across cores. |
 | F3 Rebuild Interval | 100 ms | How often the F3 overlay text is rebuilt. |
 | HUD Rebuild Interval | 250 ms | How often the scoreboard and tab-list cache is rebuilt. |

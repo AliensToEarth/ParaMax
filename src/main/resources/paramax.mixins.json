@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "BlockEntityCullingMixin",
-    "ConcurrentParticleQueueMixin",
     "CosmeticEntityTickMixin",
     "DebugHudCacheMixin",
     "DynamicFpsMixin",
@@ -12,10 +11,7 @@
     "EntityRendererInvoker",
     "FramePacingMixin",
     "ParallelEntityVisibilityMixin",
-    "ParallelParticleTickMixin",
-    "ParticleManagerAccessor",
     "ParticleSpawnBudgetMixin",
-    "ParticleSpawnDeferMixin",
     "ParticleThrottleMixin",
     "PlayerListCacheMixin",
     "ScoreboardSidebarCacheMixin",

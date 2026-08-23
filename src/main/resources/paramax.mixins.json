@@ -15,7 +15,6 @@
     "ParticleThrottleMixin",
     "PlayerListCacheMixin",
     "ScoreboardSidebarCacheMixin",
-    "SmartLightmapMixin",
     "SpikeAnticipationMixin",
     "TemporalEntityLodMixin",
     "TextureAnimationRateMixin",

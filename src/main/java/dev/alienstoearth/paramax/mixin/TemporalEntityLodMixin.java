@@ -3,7 +3,7 @@ package dev.alienstoearth.paramax.mixin;
 import dev.alienstoearth.paramax.ParaMaxState;
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.parallel.TemporalLodCache;
-import net.minecraft.client.render.entity.EntityRenderManager;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.entity.Entity;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityRenderer.class)
 public abstract class TemporalEntityLodMixin {
 
-    @Shadow @Final protected EntityRenderManager dispatcher;
+    @Shadow @Final protected EntityRenderDispatcher dispatcher;
 
     @Inject(method = "getAndUpdateRenderState", at = @At("HEAD"), cancellable = true)
     private void paramax$temporalLod(Entity entity, float tickProgress,
@@ -70,6 +70,5 @@ public abstract class TemporalEntityLodMixin {
     private static void paramax$fullUpdate(EntityRenderer renderer, Entity entity,
                                            EntityRenderState state, float tickProgress) {
         renderer.updateRenderState(entity, state, tickProgress);
-        ((EntityRendererInvoker) renderer).paramax$updateShadow(entity, state);
     }
 }

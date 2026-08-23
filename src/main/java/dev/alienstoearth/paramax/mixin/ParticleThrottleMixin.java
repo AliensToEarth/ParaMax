@@ -46,6 +46,6 @@ public class ParticleThrottleMixin {
             return false;
         }
         Vec3d center = particle.getBoundingBox().getCenter();
-        return camera.getCameraPos().squaredDistanceTo(center) > max * max;
+        return camera.getPos().squaredDistanceTo(center) > max * max;
     }
 }

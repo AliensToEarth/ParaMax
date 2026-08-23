@@ -30,7 +30,6 @@
   "paramax.toggle.adaptive_governor": "Adaptive FPS Governor",
   "paramax.toggle.frame_pacing": "Frame Pacing (Smoothing)",
   "paramax.toggle.particle_distance_culling": "Particle Distance Culling",
-  "paramax.toggle.pool_entity_states": "Pool Entity States",
   "paramax.toggle.temporal_entity_lod": "Temporal Entity LOD",
   "paramax.toggle.governor_anticipation": "Governor Anticipation",
   "paramax.toggle.particle_spawn_budget": "Particle Spawn Budget",

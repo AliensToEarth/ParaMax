@@ -82,8 +82,6 @@ public final class ParaMaxConfig {
 
     public double maxParticleDistance = 48.0;
 
-    public boolean poolEntityStates = true;
-
     public boolean temporalEntityLod = false;
 
     public double lodNearDistance = 16.0;

@@ -30,7 +30,6 @@
   "paramax.toggle.adaptive_governor": "Адаптивный регулятор FPS",
   "paramax.toggle.frame_pacing": "Выравнивание кадров (плавность)",
   "paramax.toggle.particle_distance_culling": "Отсечение частиц по дистанции",
-  "paramax.toggle.pool_entity_states": "Переиспользовать состояния сущностей",
   "paramax.toggle.temporal_entity_lod": "Временной LOD сущностей",
   "paramax.toggle.governor_anticipation": "Упреждение нагрузки регулятором",
   "paramax.toggle.particle_spawn_budget": "Лимит появления частиц",

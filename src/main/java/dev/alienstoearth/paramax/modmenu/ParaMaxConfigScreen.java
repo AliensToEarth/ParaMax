@@ -45,7 +45,6 @@ public final class ParaMaxConfigScreen extends Screen {
             Toggle.of("paramax.toggle.adaptive_governor", c -> c.adaptivePerformance, c -> c.adaptivePerformance = !c.adaptivePerformance),
             Toggle.of("paramax.toggle.frame_pacing", c -> c.framePacing, c -> c.framePacing = !c.framePacing),
             Toggle.of("paramax.toggle.particle_distance_culling", c -> c.particleCulling, c -> c.particleCulling = !c.particleCulling),
-            Toggle.of("paramax.toggle.pool_entity_states", c -> c.poolEntityStates, c -> c.poolEntityStates = !c.poolEntityStates),
             Toggle.of("paramax.toggle.temporal_entity_lod", c -> c.temporalEntityLod, c -> c.temporalEntityLod = !c.temporalEntityLod),
             Toggle.of("paramax.toggle.governor_anticipation", c -> c.anticipateSpikes, c -> c.anticipateSpikes = !c.anticipateSpikes),
             Toggle.of("paramax.toggle.particle_spawn_budget", c -> c.budgetParticleSpawns, c -> c.budgetParticleSpawns = !c.budgetParticleSpawns)

@@ -11,8 +11,6 @@
     "DynamicFpsMixin",
     "EntityRenderCullingMixin",
     "EntityRendererInvoker",
-    "EntityStatePoolMixin",
-    "EntityStatePoolRecycleMixin",
     "FramePacingMixin",
     "ParallelBlockEntityStateMixin",
     "ParallelEntityVisibilityMixin",

@@ -21,7 +21,6 @@ public enum ParaMaxPreset {
                 c.temporalEntityLod = true;
                 c.lodNearDistance = 8.0;
                 c.lodMaxInterval = 8;
-                c.smartLightmap = true;
                 c.halfRateTextureAnimations = true;
                 c.skipWeatherRendering = true;
                 c.reduceCosmeticEntityTicks = true;
@@ -45,7 +44,6 @@ public enum ParaMaxPreset {
                 c.blockEntityDistanceCulling = true;
                 c.maxBlockEntityRenderDistance = 40.0;
                 c.temporalEntityLod = true;
-                c.smartLightmap = true;
                 c.reduceCosmeticEntityTicks = true;
             }
             case LOSSLESS -> {
@@ -55,7 +53,6 @@ public enum ParaMaxPreset {
                 c.entityDistanceCulling = false;
                 c.blockEntityDistanceCulling = false;
                 c.temporalEntityLod = false;
-                c.smartLightmap = false;
                 c.halfRateTextureAnimations = false;
                 c.skipWeatherRendering = false;
                 c.reduceCosmeticEntityTicks = false;

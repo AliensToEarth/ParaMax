@@ -5,7 +5,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.LightmapRenderStateExtractor;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.effect.MobEffects;
 import org.spongepowered.asm.mixin.Final;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LightTexture.class)
+@Mixin(LightmapRenderStateExtractor.class)
 public abstract class SmartLightmapMixin {
 
     @Shadow @Final private Minecraft minecraft;
-    @Shadow private boolean updateLightTexture;
-    @Shadow private float blockLightRedFlicker;
+    @Shadow private boolean needsUpdate;
+    @Shadow private float blockLightFlicker;
 
     @Unique private long paramax$lastFingerprint = Long.MIN_VALUE;
 
@@ -32,12 +32,12 @@ public abstract class SmartLightmapMixin {
             return;
         }
         ci.cancel();
-        this.blockLightRedFlicker = 0.0F;
+        this.blockLightFlicker = 0.0F;
 
         ClientLevel world = this.minecraft.level;
         LocalPlayer player = this.minecraft.player;
         if (world == null || player == null) {
-            this.updateLightTexture = true;
+            this.needsUpdate = true;
             this.paramax$lastFingerprint = Long.MIN_VALUE;
             return;
         }
@@ -47,7 +47,7 @@ public abstract class SmartLightmapMixin {
                 || (player.getWaterVision() > 0.0F && player.hasEffect(MobEffects.CONDUIT_POWER))
                 || world.endFlashState() != null;
         if (volatileState) {
-            this.updateLightTexture = true;
+            this.needsUpdate = true;
             this.paramax$lastFingerprint = Long.MIN_VALUE;
             return;
         }
@@ -66,7 +66,7 @@ public abstract class SmartLightmapMixin {
 
         if (fingerprint != this.paramax$lastFingerprint) {
             this.paramax$lastFingerprint = fingerprint;
-            this.updateLightTexture = true;
+            this.needsUpdate = true;
         }
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.numbers.NumberFormat;
 import net.minecraft.network.chat.numbers.StyledFormat;
@@ -43,9 +43,9 @@ public abstract class   ScoreboardSidebarCacheMixin {
     @Unique private int paramax$titleWidth;
     @Unique private int paramax$maxWidth;
 
-    @Inject(method = "displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V",
+    @Inject(method = "displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/world/scores/Objective;)V",
             at = @At("HEAD"), cancellable = true)
-    private void paramax$cachedSidebar(GuiGraphics context, Objective objective, CallbackInfo ci) {
+    private void paramax$cachedSidebar(GuiGraphicsExtractor context, Objective objective, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.cacheHudText) {
             return;
@@ -73,14 +73,14 @@ public abstract class   ScoreboardSidebarCacheMixin {
         int top = bottom - count * 9;
         context.fill(left - 2, top - 9 - 1, right, top - 1, titleColor);
         context.fill(left - 2, top - 1, right, bottom, bodyColor);
-        context.drawString(this.getFont(), this.paramax$title,
+        context.text(this.getFont(), this.paramax$title,
                 left + maxWidth / 2 - this.paramax$titleWidth / 2, top - 9, CommonColors.WHITE, false);
 
         for (int i = 0; i < count; i++) {
             ParamaxSidebarLine line = lines.get(i);
             int y = bottom - (count - i) * 9;
-            context.drawString(this.getFont(), line.name(), left, y, CommonColors.WHITE, false);
-            context.drawString(this.getFont(), line.score(),
+            context.text(this.getFont(), line.name(), left, y, CommonColors.WHITE, false);
+            context.text(this.getFont(), line.score(),
                     right - line.scoreWidth(), y, CommonColors.WHITE, false);
         }
     }

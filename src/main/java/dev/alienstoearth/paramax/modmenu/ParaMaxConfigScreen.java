@@ -5,7 +5,7 @@ import dev.alienstoearth.paramax.config.ParaMaxPreset;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
@@ -165,11 +165,11 @@ public final class ParaMaxConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
-        super.render(context, mouseX, mouseY, deltaTicks);
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+        super.extractRenderState(context, mouseX, mouseY, deltaTicks);
         Component pageName = Component.translatable(
                 this.page == PAGE_TOGGLES ? "paramax.page.toggles" : "paramax.page.numbers");
-        context.drawCenteredString(this.font,
+        context.centeredText(this.font,
                 Component.translatable("paramax.options.header", pageName), this.width / 2, 15, 0xFFFFFFFF);
     }
 

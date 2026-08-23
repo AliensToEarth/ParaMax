@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
 
 @Mixin(DebugScreenOverlay.class)
@@ -20,7 +20,9 @@ public abstract class DebugHudCacheMixin {
 
     @Shadow @Final private Minecraft minecraft;
 
-    @Shadow protected abstract void renderLines(GuiGraphics context, List<String> text, boolean left);
+    @Shadow private void extractLines(GuiGraphicsExtractor context, List<String> text, boolean left) {
+        throw new AssertionError();
+    }
 
     @Shadow public abstract boolean showProfilerChart();
 
@@ -31,8 +33,8 @@ public abstract class DebugHudCacheMixin {
     @Unique private long paramax$lastBuildMs;
     @Unique private boolean paramax$drawingCached;
 
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void paramax$serveCached(GuiGraphics context, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At("HEAD"), cancellable = true)
+    private void paramax$serveCached(GuiGraphicsExtractor context, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.throttleDebugHud) {
             return;
@@ -58,15 +60,15 @@ public abstract class DebugHudCacheMixin {
         context.nextStratum();
         this.paramax$drawingCached = true;
         try {
-            this.renderLines(context, this.paramax$cachedLeft, true);
-            this.renderLines(context, this.paramax$cachedRight, false);
+            this.extractLines(context, this.paramax$cachedLeft, true);
+            this.extractLines(context, this.paramax$cachedRight, false);
         } finally {
             this.paramax$drawingCached = false;
         }
     }
 
-    @Inject(method = "renderLines", at = @At("HEAD"))
-    private void paramax$capture(GuiGraphics context, List<String> text, boolean left, CallbackInfo ci) {
+    @Inject(method = "extractLines", at = @At("HEAD"))
+    private void paramax$capture(GuiGraphicsExtractor context, List<String> text, boolean left, CallbackInfo ci) {
         if (this.paramax$drawingCached) {
             return;
         }

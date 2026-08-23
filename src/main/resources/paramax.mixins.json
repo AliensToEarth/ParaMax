@@ -11,7 +11,6 @@
     "EntityRenderCullingMixin",
     "EntityRendererInvoker",
     "FramePacingMixin",
-    "ParallelBlockEntityStateMixin",
     "ParallelEntityVisibilityMixin",
     "ParallelParticleTickMixin",
     "ParticleManagerAccessor",

@@ -40,10 +40,6 @@ public final class ParaMaxConfig {
 
     public boolean skipWeatherRendering = false;
 
-    public boolean parallelBlockEntityStates = true;
-
-    public int parallelBlockEntityThreshold = 64;
-
     public boolean throttleDebugHud = true;
 
     public int debugHudIntervalMs = 100;
@@ -164,7 +160,6 @@ public final class ParaMaxConfig {
         if (particleMultiplier > 1.0) particleMultiplier = 1.0;
         if (parallelParticleThreshold < 64) parallelParticleThreshold = 64;
         if (maxBlockEntityRenderDistance < 8.0) maxBlockEntityRenderDistance = 8.0;
-        if (parallelBlockEntityThreshold < 16) parallelBlockEntityThreshold = 16;
         if (debugHudIntervalMs < 16) debugHudIntervalMs = 16;
         if (debugHudIntervalMs > 1000) debugHudIntervalMs = 1000;
         if (menuFps < 5) menuFps = 5;

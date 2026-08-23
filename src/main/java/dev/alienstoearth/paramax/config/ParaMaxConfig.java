@@ -66,8 +66,6 @@ public final class ParaMaxConfig {
 
     public int hudCacheIntervalMs = 250;
 
-    public boolean poolBlockEntityStates = true;
-
     public boolean adaptivePerformance = false;
 
     public int targetFps = 60;

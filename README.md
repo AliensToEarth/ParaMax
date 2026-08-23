@@ -47,7 +47,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Parallel Particles | On | Ticks large particle sheets across spare CPU cores.                                                                           |
 | Parallel Block Entity States | On | Builds chest, sign and banner render states across cores instead of one at a time.                                            |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
-| Pool Block Entity States | On | Reuses block-entity render-state objects between frames instead of allocating fresh ones. Less garbage, fewer collection pauses. |
 | Cache F3 Debug Text | On | Rebuilds the F3 overlay a few times a second instead of every single frame.                                                   |
 | Cache HUD Text | On | Caches the scoreboard sidebar and tab-list ordering. Drawing stays live, so pings and names still update.                     |
 | Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |

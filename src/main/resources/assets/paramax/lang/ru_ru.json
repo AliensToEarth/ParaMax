@@ -26,7 +26,6 @@
   "paramax.toggle.parallel_entity_visibility": "Параллельная видимость сущностей",
   "paramax.toggle.smart_lightmap": "Умная карта освещения (без мерцания)",
   "paramax.toggle.cache_hud_text": "Кэшировать текст интерфейса",
-  "paramax.toggle.pool_block_entity_states": "Переиспользовать состояния блок-сущностей",
   "paramax.toggle.adaptive_governor": "Адаптивный регулятор FPS",
   "paramax.toggle.frame_pacing": "Выравнивание кадров (плавность)",
   "paramax.toggle.particle_distance_culling": "Отсечение частиц по дистанции",

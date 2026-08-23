@@ -41,7 +41,6 @@ public final class ParaMaxConfigScreen extends Screen {
             Toggle.of("paramax.toggle.parallel_entity_visibility", c -> c.parallelEntityVisibility, c -> c.parallelEntityVisibility = !c.parallelEntityVisibility),
             Toggle.of("paramax.toggle.smart_lightmap", c -> c.smartLightmap, c -> c.smartLightmap = !c.smartLightmap),
             Toggle.of("paramax.toggle.cache_hud_text", c -> c.cacheHudText, c -> c.cacheHudText = !c.cacheHudText),
-            Toggle.of("paramax.toggle.pool_block_entity_states", c -> c.poolBlockEntityStates, c -> c.poolBlockEntityStates = !c.poolBlockEntityStates),
             Toggle.of("paramax.toggle.adaptive_governor", c -> c.adaptivePerformance, c -> c.adaptivePerformance = !c.adaptivePerformance),
             Toggle.of("paramax.toggle.frame_pacing", c -> c.framePacing, c -> c.framePacing = !c.framePacing),
             Toggle.of("paramax.toggle.particle_distance_culling", c -> c.particleCulling, c -> c.particleCulling = !c.particleCulling),

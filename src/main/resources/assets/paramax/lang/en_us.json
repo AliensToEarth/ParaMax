@@ -26,7 +26,6 @@
   "paramax.toggle.parallel_entity_visibility": "Parallel Entity Visibility",
   "paramax.toggle.smart_lightmap": "Smart Lightmap (No Flicker)",
   "paramax.toggle.cache_hud_text": "Cache HUD Text",
-  "paramax.toggle.pool_block_entity_states": "Pool Block Entity States",
   "paramax.toggle.adaptive_governor": "Adaptive FPS Governor",
   "paramax.toggle.frame_pacing": "Frame Pacing (Smoothing)",
   "paramax.toggle.particle_distance_culling": "Particle Distance Culling",

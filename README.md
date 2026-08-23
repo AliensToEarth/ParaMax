@@ -65,7 +65,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Particle Throttling | Off | Keeps only a fraction of particles. |
 | Particle Distance Culling | Off | Skips particles spawning beyond a set distance. |
 | Temporal Entity LOD | Off | Updates distant entities pose and equipment less often. Position still updates every frame, so movement stays smooth. |
-| Smart Lightmap | Off | Removes cosmetic light flicker and skips the lightmap rebuild unless something real changed. |
 | Half-Rate Texture Animations | Off | Advances animated textures like lava and fire every other tick, so they play at half speed. |
 | Skip Weather Rendering | Off | Doesn't draw rain or snow. The weather still happens, you just don't see it. |
 | Reduce Cosmetic Entity Ticks | Off | Ticks paintings, item frames and leash knots every other tick. |

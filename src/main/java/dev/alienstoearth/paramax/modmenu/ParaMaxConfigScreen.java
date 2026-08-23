@@ -176,6 +176,6 @@ public final class ParaMaxConfigScreen extends Screen {
     @Override
     public void onClose() {
         ParaMaxConfig.get().save();
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.setScreenAndShow(this.parent);
     }
 }

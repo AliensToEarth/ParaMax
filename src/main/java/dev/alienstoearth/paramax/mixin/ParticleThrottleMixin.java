@@ -41,7 +41,7 @@ public class ParticleThrottleMixin {
 
     @Unique
     private static boolean paramax$beyondCullDistance(Particle particle, double max) {
-        var camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        var camera = Minecraft.getInstance().gameRenderer.mainCamera();
         if (camera == null || !camera.isInitialized()) {
             return false;
         }

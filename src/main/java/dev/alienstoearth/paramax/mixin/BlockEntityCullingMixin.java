@@ -20,7 +20,7 @@ public abstract class BlockEntityCullingMixin {
 
     @Inject(method = "tryExtractRenderState", at = @At("HEAD"), cancellable = true)
     private void paramax$distanceCull(BlockEntity blockEntity, float tickProgress,
-                                      ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
+                                      ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, boolean bl,
                                       CallbackInfoReturnable<BlockEntityRenderState> cir) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || this.cameraPos == null) {

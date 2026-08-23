@@ -47,7 +47,7 @@ public abstract class FramePacingMixin {
 
         Minecraft client = (Minecraft) (Object) this;
         boolean throttled = !client.isWindowActive()
-                || (client.screen != null && (client.level == null || client.isPaused()));
+                || (client.gui.screen() != null && (client.level == null || client.isPaused()));
 
         long now = System.nanoTime();
         if (throttled) {

@@ -49,7 +49,7 @@ public abstract class DebugHudCacheMixin {
         }
 
         if (!this.minecraft.isGameLoadFinished()
-                || (this.minecraft.options.hideGui && this.minecraft.screen == null)
+
                 || this.minecraft.debugEntries.getCurrentlyEnabled().isEmpty()) {
             this.paramax$cachedLeft = null;
             this.paramax$cachedRight = null;

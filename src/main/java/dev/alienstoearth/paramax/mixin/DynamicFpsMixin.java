@@ -25,7 +25,7 @@ public abstract class DynamicFpsMixin {
         int targetFps;
         if (!client.isWindowActive()) {
             targetFps = cfg.unfocusedFps;
-        } else if (cfg.throttleMenus && client.screen != null
+        } else if (cfg.throttleMenus && client.gui.screen() != null
                 && (client.level == null || client.isPaused())) {
             targetFps = cfg.menuFps;
         } else {

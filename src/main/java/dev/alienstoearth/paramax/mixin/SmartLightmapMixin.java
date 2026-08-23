@@ -52,7 +52,7 @@ public abstract class SmartLightmapMixin {
             return;
         }
 
-        Camera camera = this.minecraft.gameRenderer.getMainCamera();
+        Camera camera = this.minecraft.gameRenderer.mainCamera();
         int skyColor = camera.attributeProbe()
                 .getValue(EnvironmentAttributes.SKY_LIGHT_COLOR, 1.0F);
         float skyFactor = camera.attributeProbe()

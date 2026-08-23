@@ -20,19 +20,18 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-@Mixin(LevelRenderer.class)
+@Mixin(LevelExtractor.class)
 public abstract class ParallelEntityVisibilityMixin {
 
     @Shadow @Final private Minecraft minecraft;
-    @Shadow @Final private EntityRenderDispatcher entityRenderDispatcher;
     @Shadow private ClientLevel level;
 
     @Unique
@@ -77,7 +76,7 @@ public abstract class ParallelEntityVisibilityMixin {
             futures.add(CompletableFuture.runAsync(() -> {
                 for (int i = lo; i < hi; i++) {
                     try {
-                        visible[i] = this.entityRenderDispatcher.shouldRender(entities.get(i), frustum, x, y, z);
+                        visible[i] = this.minecraft.getEntityRenderDispatcher().shouldRender(entities.get(i), frustum, x, y, z);
                     } catch (Throwable t) {
                         visible[i] = true;
                     }
@@ -91,7 +90,7 @@ public abstract class ParallelEntityVisibilityMixin {
         }
     }
 
-    @Redirect(method = "extractVisibleEntities",
+    @Redirect(method = "isEntityVisible",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/renderer/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z"))
     private boolean paramax$lookup(EntityRenderDispatcher manager, Entity entity, Frustum frustum,

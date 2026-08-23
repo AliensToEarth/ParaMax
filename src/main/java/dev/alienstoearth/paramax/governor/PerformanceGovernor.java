@@ -82,7 +82,7 @@ public final class PerformanceGovernor {
             reset();
             return;
         }
-        if (!client.isWindowActive() || client.screen != null || client.isPaused()) {
+        if (!client.isWindowActive() || client.gui.screen() != null || client.isPaused()) {
 
             belowTicks = 0;
             aboveTicks = 0;

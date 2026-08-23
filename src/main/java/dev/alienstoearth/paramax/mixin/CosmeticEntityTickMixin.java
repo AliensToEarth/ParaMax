@@ -4,6 +4,7 @@ import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,10 +21,10 @@ public abstract class CosmeticEntityTickMixin {
         }
 
         EntityType<?> type = entity.getType();
-        if (type != EntityType.PAINTING
-                && type != EntityType.ITEM_FRAME
-                && type != EntityType.GLOW_ITEM_FRAME
-                && type != EntityType.LEASH_KNOT) {
+        if (type != EntityTypes.PAINTING
+                && type != EntityTypes.ITEM_FRAME
+                && type != EntityTypes.GLOW_ITEM_FRAME
+                && type != EntityTypes.LEASH_KNOT) {
             return;
         }
 

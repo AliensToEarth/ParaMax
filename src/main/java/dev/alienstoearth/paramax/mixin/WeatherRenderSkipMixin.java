@@ -1,8 +1,7 @@
 package dev.alienstoearth.paramax.mixin;
 
-import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
-import net.minecraft.client.render.FrameGraphBuilder;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.WorldRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class WeatherRenderSkipMixin {
 
     @Inject(method = "renderWeather", at = @At("HEAD"), cancellable = true)
-    private void paramax$skipWeather(FrameGraphBuilder frameGraphBuilder, GpuBufferSlice fogBuffer,
-                                     CallbackInfo ci) {
+    private void paramax$skipWeather(LightmapTextureManager lightmap, float tickDelta,
+                                     double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (cfg.enabled && cfg.skipWeatherRendering) {
             ci.cancel();

@@ -22,7 +22,6 @@
   "paramax.toggle.half_rate_texture_animations": "Анимации текстур в пол-скорости",
   "paramax.toggle.reduce_cosmetic_entity_ticks": "Реже обновлять декоративные сущности",
   "paramax.toggle.parallel_entity_visibility": "Параллельная видимость сущностей",
-  "paramax.toggle.smart_lightmap": "Умная карта освещения (без мерцания)",
   "paramax.toggle.cache_hud_text": "Кэшировать текст интерфейса",
   "paramax.toggle.adaptive_governor": "Адаптивный регулятор FPS",
   "paramax.toggle.frame_pacing": "Выравнивание кадров (плавность)",

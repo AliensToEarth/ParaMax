@@ -17,7 +17,6 @@
   "paramax.toggle.entity_distance_culling": "Entity Distance Culling",
   "paramax.toggle.block_entity_distance_culling": "Block Entity Distance Culling",
   "paramax.toggle.particle_throttling": "Particle Throttling",
-  "paramax.toggle.skip_weather_rendering": "Skip Weather Rendering",
   "paramax.toggle.half_rate_texture_animations": "Half-Rate Texture Animations",
   "paramax.toggle.reduce_cosmetic_entity_ticks": "Reduce Cosmetic Entity Ticks",
   "paramax.toggle.parallel_entity_visibility": "Parallel Entity Visibility",

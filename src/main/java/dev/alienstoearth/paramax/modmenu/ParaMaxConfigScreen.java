@@ -63,7 +63,7 @@ public final class ParaMaxConfigScreen extends Screen {
 
         this.addPresetRow(gap);
 
-        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 16;
+        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 15;
         int availableRows = Math.max(1, (this.height - gridTop - 40) / (buttonHeight + gap));
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
@@ -145,8 +145,6 @@ public final class ParaMaxConfigScreen extends Screen {
                         () -> cfg.workerThreadCount, v -> cfg.workerThreadCount = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.governor_base_pressure", 0, 4, 1, ParaMaxSlider.Format.INT,
                         () -> cfg.governorBasePressure, v -> cfg.governorBasePressure = (int) v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.pacing_min_fps", 10, 120, 5, ParaMaxSlider.Format.FPS,
-                        () -> cfg.pacingMinFps, v -> cfg.pacingMinFps = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.particle_cull_distance", 8, 256, 8, ParaMaxSlider.Format.BLOCKS,
                         () -> cfg.maxParticleDistance, v -> cfg.maxParticleDistance = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.lod_near_distance", 8, 64, 4, ParaMaxSlider.Format.BLOCKS,

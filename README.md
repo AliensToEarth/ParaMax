@@ -74,8 +74,3 @@ cd ParaMax
 
 The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2.1+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 
----
-
-## ❓ Something broke?
-If you hit a bug or a crash, please open an [issue](https://github.com/AliensToEarth/ParaMax/issues) with your log and a quick note on what you were up to. If you can, grab a screenshot of the F3 screen - ParaMax adds a line there showing capacity, pacing, and governor state, and that context makes bugs a lot faster to track down.
-

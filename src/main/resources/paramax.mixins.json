@@ -16,7 +16,6 @@
     "SpikeAnticipationMixin",
     "TemporalEntityLodMixin",
     "TextureAnimationRateMixin",
-    "WeatherRenderSkipMixin",
     "WorkerThreadCountMixin"
   ],
   "injectors": {

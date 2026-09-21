@@ -25,7 +25,6 @@ public final class ParaMaxConfigScreen extends Screen {
 
     private static final List<Toggle> TOGGLES = List.of(
             Toggle.of("paramax.toggle.enabled", c -> c.enabled, c -> c.enabled = !c.enabled),
-            Toggle.of("paramax.toggle.worker_threads", c -> c.tuneWorkerThreads, c -> c.tuneWorkerThreads = !c.tuneWorkerThreads),
             Toggle.of("paramax.toggle.dynamic_fps", c -> c.dynamicFps, c -> c.dynamicFps = !c.dynamicFps),
             Toggle.of("paramax.toggle.menu_fps_cap", c -> c.throttleMenus, c -> c.throttleMenus = !c.throttleMenus),
             Toggle.of("paramax.toggle.entity_distance_culling", c -> c.entityDistanceCulling, c -> c.entityDistanceCulling = !c.entityDistanceCulling),
@@ -62,7 +61,7 @@ public final class ParaMaxConfigScreen extends Screen {
 
         this.addPresetRow(gap);
 
-        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 14;
+        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 13;
         int availableRows = Math.max(1, (this.height - gridTop - 40) / (buttonHeight + gap));
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
@@ -138,8 +137,6 @@ public final class ParaMaxConfigScreen extends Screen {
                         () -> cfg.maxEntityRenderDistance, v -> cfg.maxEntityRenderDistance = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.parallel_entity_threshold", 32, 1024, 32, ParaMaxSlider.Format.INT,
                         () -> cfg.parallelEntityThreshold, v -> cfg.parallelEntityThreshold = (int) v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.worker_threads", 0, 32, 1, ParaMaxSlider.Format.INT_OR_AUTO,
-                        () -> cfg.workerThreadCount, v -> cfg.workerThreadCount = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.governor_base_pressure", 0, 4, 1, ParaMaxSlider.Format.INT,
                         () -> cfg.governorBasePressure, v -> cfg.governorBasePressure = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.particle_cull_distance", 8, 256, 8, ParaMaxSlider.Format.BLOCKS,

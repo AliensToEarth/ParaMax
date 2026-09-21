@@ -15,8 +15,7 @@
     "SmartLightmapMixin",
     "SpikeAnticipationMixin",
     "TemporalEntityLodMixin",
-    "TextureAnimationRateMixin",
-    "WorkerThreadCountMixin"
+    "TextureAnimationRateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

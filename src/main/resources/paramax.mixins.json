@@ -10,8 +10,7 @@
     "ParticleSpawnBudgetMixin",
     "ParticleThrottleMixin",
     "SpikeAnticipationMixin",
-    "TextureAnimationRateMixin",
-    "WorkerThreadCountMixin"
+    "TextureAnimationRateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -30,7 +30,6 @@ public enum ParaMaxPreset {
                 c.targetFps = 60;
                 c.unfocusedFps = 5;
                 c.menuFps = 30;
-                c.pacingMinFps = 20;
             }
             case BALANCED -> {
                 c.throttleParticles = true;

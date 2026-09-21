@@ -94,12 +94,6 @@ public abstract class FramePacingMixin {
             paramax$target = candidate;
         }
 
-        long minFpsBudget = 1_000_000_000L / Math.max(10, cfg.pacingMinFps);
-        if (paramax$target >= minFpsBudget) {
-            paramax$lastStart = now;
-            ParaMaxState.pacingTargetNanos = 0L;
-            return;
-        }
         ParaMaxState.pacingTargetNanos = paramax$target;
 
         long deadline = paramax$lastStart + paramax$target;

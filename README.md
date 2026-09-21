@@ -76,7 +76,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Governor Base Pressure | 0 | A floor for the governor. Above 0 it never fully relaxes. |
 | Unfocused FPS | 10 | Framerate while the window isn't focused. |
 | Menu FPS | 60 | Framerate cap on the pause menu. |
-| Pacing Min FPS | 30 | Frame pacing switches itself off below this, so a struggling game ships frames as fast as it can. |
 | Particles Kept | 60% | How many particles survive when particle throttling is on. |
 | Particle Cull Distance | 48 blocks | Particles spawning further away than this are skipped. |
 | Particle Spawn Budget | 4000 | The most particles allowed to appear in a single tick. |

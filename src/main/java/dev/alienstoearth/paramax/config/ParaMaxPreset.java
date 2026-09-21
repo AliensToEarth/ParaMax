@@ -23,7 +23,6 @@ public enum ParaMaxPreset {
                 c.lodMaxInterval = 8;
                 c.smartLightmap = true;
                 c.halfRateTextureAnimations = true;
-                c.skipWeatherRendering = true;
                 c.reduceCosmeticEntityTicks = true;
                 c.adaptivePerformance = true;
                 c.governorBasePressure = 1;
@@ -54,7 +53,6 @@ public enum ParaMaxPreset {
                 c.temporalEntityLod = false;
                 c.smartLightmap = false;
                 c.halfRateTextureAnimations = false;
-                c.skipWeatherRendering = false;
                 c.reduceCosmeticEntityTicks = false;
             }
         }

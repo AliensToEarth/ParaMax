@@ -10,7 +10,6 @@ final class ParaMaxSlider extends SliderWidget {
 
     enum Format {
         INT,
-        INT_OR_AUTO,
         PERCENT,
         BLOCKS,
         MILLISECONDS,
@@ -52,9 +51,6 @@ final class ParaMaxSlider extends SliderWidget {
         double v = this.realValue();
         Text shown = switch (this.format) {
             case INT -> Text.literal(String.valueOf((int) v));
-            case INT_OR_AUTO -> (int) v == 0
-                    ? Text.translatable("paramax.value.auto")
-                    : Text.literal(String.valueOf((int) v));
             case PERCENT -> Text.translatable("paramax.unit.percent", (int) Math.round(v * 100.0));
             case BLOCKS -> Text.translatable("paramax.unit.blocks", (int) v);
             case MILLISECONDS -> Text.translatable("paramax.unit.milliseconds", (int) v);

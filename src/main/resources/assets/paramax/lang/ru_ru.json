@@ -11,7 +11,6 @@
   "paramax.preset.lossless": "Без потерь",
 
   "paramax.toggle.enabled": "ParaMax включён",
-  "paramax.toggle.worker_threads": "Переопределение рабочих потоков",
   "paramax.toggle.dynamic_fps": "Динамический FPS (окно не в фокусе)",
   "paramax.toggle.menu_fps_cap": "Ограничение FPS в меню",
   "paramax.toggle.entity_distance_culling": "Отсечение сущностей по дистанции",
@@ -34,7 +33,6 @@
   "paramax.slider.particles_kept": "Доля частиц",
   "paramax.slider.entity_cull_distance": "Дистанция отсечения сущностей",
   "paramax.slider.parallel_entity_threshold": "Порог параллельных сущностей",
-  "paramax.slider.worker_threads": "Рабочие потоки",
   "paramax.slider.governor_base_pressure": "Базовое давление регулятора",
   "paramax.slider.particle_cull_distance": "Дистанция отсечения частиц",
   "paramax.slider.lod_near_distance": "Ближняя дистанция LOD",
@@ -42,7 +40,6 @@
   "paramax.slider.particle_spawn_budget": "Лимит появления частиц",
 
   "paramax.slider.entry": "%1$s: %2$s",
-  "paramax.value.auto": "авто",
   "paramax.unit.percent": "%s%%",
   "paramax.unit.blocks": "%s бл.",
   "paramax.unit.milliseconds": "%s мс",

@@ -38,7 +38,6 @@
   "paramax.slider.parallel_entity_threshold": "Parallel Entity Threshold",
   "paramax.slider.worker_threads": "Worker Threads",
   "paramax.slider.governor_base_pressure": "Governor Base Pressure",
-  "paramax.slider.pacing_min_fps": "Pacing Min FPS",
   "paramax.slider.particle_cull_distance": "Particle Cull Distance",
   "paramax.slider.lod_near_distance": "LOD Near Distance",
   "paramax.slider.lod_max_interval": "LOD Max Interval",

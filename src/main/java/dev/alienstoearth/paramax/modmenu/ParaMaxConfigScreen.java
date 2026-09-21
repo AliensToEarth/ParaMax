@@ -33,11 +33,9 @@ public final class ParaMaxConfigScreen extends Screen {
             Toggle.of("paramax.toggle.block_entity_distance_culling", c -> c.blockEntityDistanceCulling, c -> c.blockEntityDistanceCulling = !c.blockEntityDistanceCulling),
             Toggle.of("paramax.toggle.particle_throttling", c -> c.throttleParticles, c -> c.throttleParticles = !c.throttleParticles),
             Toggle.of("paramax.toggle.skip_weather_rendering", c -> c.skipWeatherRendering, c -> c.skipWeatherRendering = !c.skipWeatherRendering),
-            Toggle.of("paramax.toggle.cache_debug_text", c -> c.throttleDebugHud, c -> c.throttleDebugHud = !c.throttleDebugHud),
             Toggle.of("paramax.toggle.half_rate_texture_animations", c -> c.halfRateTextureAnimations, c -> c.halfRateTextureAnimations = !c.halfRateTextureAnimations),
             Toggle.of("paramax.toggle.reduce_cosmetic_entity_ticks", c -> c.reduceCosmeticEntityTicks, c -> c.reduceCosmeticEntityTicks = !c.reduceCosmeticEntityTicks),
             Toggle.of("paramax.toggle.parallel_entity_visibility", c -> c.parallelEntityVisibility, c -> c.parallelEntityVisibility = !c.parallelEntityVisibility),
-            Toggle.of("paramax.toggle.cache_hud_text", c -> c.cacheHudText, c -> c.cacheHudText = !c.cacheHudText),
             Toggle.of("paramax.toggle.adaptive_governor", c -> c.adaptivePerformance, c -> c.adaptivePerformance = !c.adaptivePerformance),
             Toggle.of("paramax.toggle.frame_pacing", c -> c.framePacing, c -> c.framePacing = !c.framePacing),
             Toggle.of("paramax.toggle.particle_distance_culling", c -> c.particleCulling, c -> c.particleCulling = !c.particleCulling),
@@ -65,7 +63,7 @@ public final class ParaMaxConfigScreen extends Screen {
 
         this.addPresetRow(gap);
 
-        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 18;
+        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 16;
         int availableRows = Math.max(1, (this.height - gridTop - 40) / (buttonHeight + gap));
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
@@ -143,10 +141,6 @@ public final class ParaMaxConfigScreen extends Screen {
                         () -> cfg.maxBlockEntityRenderDistance, v -> cfg.maxBlockEntityRenderDistance = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.parallel_entity_threshold", 32, 1024, 32, ParaMaxSlider.Format.INT,
                         () -> cfg.parallelEntityThreshold, v -> cfg.parallelEntityThreshold = (int) v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.debug_hud_interval", 16, 1000, 16, ParaMaxSlider.Format.MILLISECONDS,
-                        () -> cfg.debugHudIntervalMs, v -> cfg.debugHudIntervalMs = (int) v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.hud_interval", 50, 2000, 50, ParaMaxSlider.Format.MILLISECONDS,
-                        () -> cfg.hudCacheIntervalMs, v -> cfg.hudCacheIntervalMs = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.worker_threads", 0, 32, 1, ParaMaxSlider.Format.INT_OR_AUTO,
                         () -> cfg.workerThreadCount, v -> cfg.workerThreadCount = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.governor_base_pressure", 0, 4, 1, ParaMaxSlider.Format.INT,

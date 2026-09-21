@@ -9,8 +9,6 @@
     "FramePacingMixin",
     "ParticleSpawnBudgetMixin",
     "ParticleThrottleMixin",
-    "PlayerListCacheMixin",
-    "ScoreboardSidebarCacheMixin",
     "SpikeAnticipationMixin",
     "TextureAnimationRateMixin",
     "WeatherRenderSkipMixin",

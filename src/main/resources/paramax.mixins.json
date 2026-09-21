@@ -5,7 +5,6 @@
   "client": [
     "BlockEntityCullingMixin",
     "CosmeticEntityTickMixin",
-    "DebugHudCacheMixin",
     "DynamicFpsMixin",
     "EntityRenderCullingMixin",
     "EntityRendererInvoker",
@@ -13,8 +12,6 @@
     "ParallelEntityVisibilityMixin",
     "ParticleSpawnBudgetMixin",
     "ParticleThrottleMixin",
-    "PlayerListCacheMixin",
-    "ScoreboardSidebarCacheMixin",
     "SmartLightmapMixin",
     "SpikeAnticipationMixin",
     "TemporalEntityLodMixin",

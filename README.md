@@ -17,7 +17,7 @@
 - It's meant to run **alongside** Sodium and Lithium rather than compete with them. ParaMax hooks Minecraft's *vanilla* rendering - entity, particle, lightmap, and HUD paths - but it deliberately leaves the terrain and chunk render pipeline untouched, which is exactly the part Sodium replaces. Lithium optimizes server-side game logic, which ParaMax doesn't go near at all.
 - The heart of ParaMax is **frame pacing**. A game that swings between fast and slow frames feels as juddery even when the average framerate looks great, so ParaMax measures what each frame really costs and smooths the delivery out. It does this carefully - with a precise wait and an awareness of Minecraft's 20-per-second logic tick - so it evens things out without quietly stealing framerate from you.
   Sitting on top of that is an **adaptive governor**. Think of it as a helper that keeps an eye on your FPS and your frame-time spikes and only steps in when you're genuinely struggling. When things get heavy it eases off the expensive stuff - particles, distant entities, texture animation rate - and as soon as you have room to breathe again, it hands that back. It can even brace for trouble ahead of time when it sees something like a huge explosion coming.
-- Under the hood there's the less glamorous work that tends to matter most for the consistency: reusing render objects instead of throwing them away and rebuilding them every frame (easier on the garbage collector), spreading some particle, entity, and block-entity work across spare CPU cores, and a handful of optional culling and throttling knobs for the truly nasty scenes. There are also the obvious background savings - dropping your framerate when the window isn't focused, not rebuilding the F3 screen every single frame, and caching the scoreboard and player list.
+- Under the hood there's the less glamorous work that tends to matter most for the consistency: reusing render objects instead of throwing them away and rebuilding them every frame (easier on the garbage collector), spreading some particle, entity, and block-entity work across spare CPU cores, and a handful of optional culling and throttling knobs for the truly nasty scenes. There are also the obvious background savings - dropping your framerate when the window isn't focused, not rebuilding the F3 screen every single frame.
 
 ## 📖 You're in control
 Everything here is a toggle, and the numbers behind it - target FPS, worker threads, culling distances, particle limits, how twitchy the governor is - are all adjustable live from the Mod Menu screen. No digging through JSON. Don't like something? Turn it off. Want the whole thing gone for a moment? There's one switch for that too.
@@ -45,8 +45,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
-| Cache F3 Debug Text | On | Rebuilds the F3 overlay a few times a second instead of every single frame.                                                   |
-| Cache HUD Text | On | Caches the scoreboard sidebar and tab-list ordering. Drawing stays live, so pings and names still update.                     |
 | Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |
 
 ### Adaptive
@@ -87,8 +85,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
 | Worker Threads | auto | Size of ParaMax's own thread pool. Auto means your core count minus one. |
 | Parallel Entity Threshold | 128 | How many entities before visibility work is spread across cores. |
-| F3 Rebuild Interval | 100 ms | How often the F3 overlay text is rebuilt. |
-| HUD Rebuild Interval | 250 ms | How often the scoreboard and tab-list cache is rebuilt. |
 ---
 ## 📥 Building from source
 

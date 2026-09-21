@@ -29,8 +29,6 @@ public enum ParaMaxPreset {
                 c.targetFps = 60;
                 c.unfocusedFps = 5;
                 c.menuFps = 30;
-                c.debugHudIntervalMs = 500;
-                c.hudCacheIntervalMs = 1000;
                 c.pacingMinFps = 20;
             }
             case BALANCED -> {

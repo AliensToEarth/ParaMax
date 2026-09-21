@@ -30,12 +30,12 @@ public final class ParaMaxConfigScreen extends Screen {
             Toggle.of("paramax.toggle.dynamic_fps", c -> c.dynamicFps, c -> c.dynamicFps = !c.dynamicFps),
             Toggle.of("paramax.toggle.menu_fps_cap", c -> c.throttleMenus, c -> c.throttleMenus = !c.throttleMenus),
             Toggle.of("paramax.toggle.entity_distance_culling", c -> c.entityDistanceCulling, c -> c.entityDistanceCulling = !c.entityDistanceCulling),
-            Toggle.of("paramax.toggle.block_entity_distance_culling", c -> c.blockEntityDistanceCulling, c -> c.blockEntityDistanceCulling = !c.blockEntityDistanceCulling),
             Toggle.of("paramax.toggle.particle_throttling", c -> c.throttleParticles, c -> c.throttleParticles = !c.throttleParticles),
             Toggle.of("paramax.toggle.half_rate_texture_animations", c -> c.halfRateTextureAnimations, c -> c.halfRateTextureAnimations = !c.halfRateTextureAnimations),
             Toggle.of("paramax.toggle.reduce_cosmetic_entity_ticks", c -> c.reduceCosmeticEntityTicks, c -> c.reduceCosmeticEntityTicks = !c.reduceCosmeticEntityTicks),
             Toggle.of("paramax.toggle.parallel_entity_visibility", c -> c.parallelEntityVisibility, c -> c.parallelEntityVisibility = !c.parallelEntityVisibility),
             Toggle.of("paramax.toggle.smart_lightmap", c -> c.smartLightmap, c -> c.smartLightmap = !c.smartLightmap),
+            Toggle.of("paramax.toggle.reuse_block_entity_states", c -> c.reuseBlockEntityStates, c -> c.reuseBlockEntityStates = !c.reuseBlockEntityStates),
             Toggle.of("paramax.toggle.adaptive_governor", c -> c.adaptivePerformance, c -> c.adaptivePerformance = !c.adaptivePerformance),
             Toggle.of("paramax.toggle.frame_pacing", c -> c.framePacing, c -> c.framePacing = !c.framePacing),
             Toggle.of("paramax.toggle.particle_distance_culling", c -> c.particleCulling, c -> c.particleCulling = !c.particleCulling),
@@ -63,7 +63,7 @@ public final class ParaMaxConfigScreen extends Screen {
 
         this.addPresetRow(gap);
 
-        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 15;
+        int itemCount = this.page == PAGE_TOGGLES ? TOGGLES.size() : 14;
         int availableRows = Math.max(1, (this.height - gridTop - 40) / (buttonHeight + gap));
         int columns = Math.max(2, (itemCount + availableRows - 1) / availableRows);
         int buttonWidth = Math.min(180, (this.width - 20 - gap * (columns - 1)) / columns);
@@ -137,8 +137,6 @@ public final class ParaMaxConfigScreen extends Screen {
                         () -> cfg.particleMultiplier, v -> cfg.particleMultiplier = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.entity_cull_distance", 8, 192, 8, ParaMaxSlider.Format.BLOCKS,
                         () -> cfg.maxEntityRenderDistance, v -> cfg.maxEntityRenderDistance = v),
-                new ParaMaxSlider(0, 0, w, h, "paramax.slider.block_entity_cull_distance", 8, 192, 8, ParaMaxSlider.Format.BLOCKS,
-                        () -> cfg.maxBlockEntityRenderDistance, v -> cfg.maxBlockEntityRenderDistance = v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.parallel_entity_threshold", 32, 1024, 32, ParaMaxSlider.Format.INT,
                         () -> cfg.parallelEntityThreshold, v -> cfg.parallelEntityThreshold = (int) v),
                 new ParaMaxSlider(0, 0, w, h, "paramax.slider.worker_threads", 0, 32, 1, ParaMaxSlider.Format.INT_OR_AUTO,

@@ -11,7 +11,6 @@
   "paramax.preset.lossless": "Lossless Defaults",
 
   "paramax.toggle.enabled": "ParaMax Enabled",
-  "paramax.toggle.worker_threads": "Worker Thread Override",
   "paramax.toggle.dynamic_fps": "Dynamic FPS (Unfocused)",
   "paramax.toggle.menu_fps_cap": "Menu FPS Cap",
   "paramax.toggle.entity_distance_culling": "Entity Distance Culling",
@@ -32,7 +31,6 @@
   "paramax.slider.particles_kept": "Particles Kept",
   "paramax.slider.entity_cull_distance": "Entity Cull Distance",
   "paramax.slider.parallel_entity_threshold": "Parallel Entity Threshold",
-  "paramax.slider.worker_threads": "Worker Threads",
   "paramax.slider.governor_base_pressure": "Governor Base Pressure",
   "paramax.slider.particle_cull_distance": "Particle Cull Distance",
   "paramax.slider.lod_near_distance": "LOD Near Distance",
@@ -40,7 +38,6 @@
   "paramax.slider.particle_spawn_budget": "Particle Spawn Budget",
 
   "paramax.slider.entry": "%1$s: %2$s",
-  "paramax.value.auto": "auto",
   "paramax.unit.percent": "%s%%",
   "paramax.unit.blocks": "%s blocks",
   "paramax.unit.milliseconds": "%s ms",

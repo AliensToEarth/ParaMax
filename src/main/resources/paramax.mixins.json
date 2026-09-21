@@ -3,7 +3,7 @@
   "package": "dev.alienstoearth.paramax.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "BlockEntityCullingMixin",
+    "BlockEntityStateReuseMixin",
     "CosmeticEntityTickMixin",
     "DynamicFpsMixin",
     "EntityRenderCullingMixin",

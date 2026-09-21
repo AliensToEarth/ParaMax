@@ -16,8 +16,6 @@ public enum ParaMaxPreset {
                 c.particleSpawnBudget = 200;
                 c.entityDistanceCulling = true;
                 c.maxEntityRenderDistance = 32.0;
-                c.blockEntityDistanceCulling = true;
-                c.maxBlockEntityRenderDistance = 24.0;
                 c.temporalEntityLod = true;
                 c.lodNearDistance = 8.0;
                 c.lodMaxInterval = 8;
@@ -37,8 +35,6 @@ public enum ParaMaxPreset {
                 c.particleSpawnBudget = 750;
                 c.entityDistanceCulling = true;
                 c.maxEntityRenderDistance = 48.0;
-                c.blockEntityDistanceCulling = true;
-                c.maxBlockEntityRenderDistance = 40.0;
                 c.temporalEntityLod = true;
                 c.reduceCosmeticEntityTicks = true;
             }
@@ -47,7 +43,6 @@ public enum ParaMaxPreset {
                 c.particleCulling = false;
                 c.particleSpawnBudget = 4000;
                 c.entityDistanceCulling = false;
-                c.blockEntityDistanceCulling = false;
                 c.temporalEntityLod = false;
                 c.halfRateTextureAnimations = false;
                 c.reduceCosmeticEntityTicks = false;

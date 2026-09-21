@@ -46,6 +46,7 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
 | Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |
+| Reuse Block Entity States | On | Reuses each chest, sign, beacon etc.'s render data object instead of allocating a new one every frame. Still refreshed every frame, so nothing goes stale. |
 
 ### Adaptive
 
@@ -59,7 +60,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Feature | Default | What it does |
 |---|---|---|
 | Entity Distance Culling | Off | Stops rendering entities past a set distance. |
-| Block Entity Distance Culling | Off | Stops rendering chests, signs, banners and beacons past a set distance. |
 | Particle Throttling | Off | Keeps only a fraction of particles. |
 | Particle Distance Culling | Off | Skips particles spawning beyond a set distance. |
 | Temporal Entity LOD | Off | Updates distant entities pose and equipment less often. Position still updates every frame, so movement stays smooth. |
@@ -78,7 +78,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Particle Cull Distance | 48 blocks | Particles spawning further away than this are skipped. |
 | Particle Spawn Budget | 4000 | The most particles allowed to appear in a single tick. |
 | Entity Cull Distance | 64 blocks | Entities beyond this aren't rendered. |
-| Block Entity Cull Distance | 48 blocks | Chests, signs, banners and beacons beyond this aren't rendered. |
 | LOD Near Distance | 16 blocks | Entities closer than this always update every frame. |
 | LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
 | Worker Threads | auto | Size of ParaMax's own thread pool. Auto means your core count minus one. |

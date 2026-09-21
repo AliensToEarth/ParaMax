@@ -9,7 +9,6 @@ final class ParaMaxSlider extends AbstractSliderButton {
 
     enum Format {
         INT,
-        INT_OR_AUTO,
         PERCENT,
         BLOCKS,
         MILLISECONDS,
@@ -51,9 +50,6 @@ final class ParaMaxSlider extends AbstractSliderButton {
         double v = this.realValue();
         Component shown = switch (this.format) {
             case INT -> Component.literal(String.valueOf((int) v));
-            case INT_OR_AUTO -> (int) v == 0
-                    ? Component.translatable("paramax.value.auto")
-                    : Component.literal(String.valueOf((int) v));
             case PERCENT -> Component.translatable("paramax.unit.percent", (int) Math.round(v * 100.0));
             case BLOCKS -> Component.translatable("paramax.unit.blocks", (int) v);
             case MILLISECONDS -> Component.translatable("paramax.unit.milliseconds", (int) v);

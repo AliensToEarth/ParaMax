@@ -14,10 +14,6 @@ public final class ParaMaxConfig {
 
     public boolean enabled = true;
 
-    public boolean tuneWorkerThreads = true;
-
-    public int workerThreadCount = 0;
-
     public boolean dynamicFps = true;
 
     public int unfocusedFps = 10;
@@ -134,7 +130,6 @@ public final class ParaMaxConfig {
     }
 
     public void clamp() {
-        if (workerThreadCount < 0) workerThreadCount = 0;
         if (unfocusedFps < 1) unfocusedFps = 1;
         if (unfocusedFps > 260) unfocusedFps = 260;
         if (maxEntityRenderDistance < 8.0) maxEntityRenderDistance = 8.0;

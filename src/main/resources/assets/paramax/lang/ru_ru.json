@@ -17,7 +17,6 @@
   "paramax.toggle.entity_distance_culling": "Отсечение сущностей по дистанции",
   "paramax.toggle.block_entity_distance_culling": "Отсечение блок-сущностей по дистанции",
   "paramax.toggle.particle_throttling": "Ограничение частиц",
-  "paramax.toggle.skip_weather_rendering": "Не отрисовывать погоду",
   "paramax.toggle.half_rate_texture_animations": "Анимации текстур в пол-скорости",
   "paramax.toggle.reduce_cosmetic_entity_ticks": "Реже обновлять декоративные сущности",
   "paramax.toggle.parallel_entity_visibility": "Параллельная видимость сущностей",

@@ -34,9 +34,6 @@ public final class ParaMaxConfig {
 
     public double maxBlockEntityRenderDistance = 48.0;
 
-    public boolean skipWeatherRendering = false;
-
-
     public boolean halfRateTextureAnimations = false;
 
     public boolean reduceCosmeticEntityTicks = false;

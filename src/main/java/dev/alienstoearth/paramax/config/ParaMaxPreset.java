@@ -22,7 +22,6 @@ public enum ParaMaxPreset {
                 c.lodNearDistance = 8.0;
                 c.lodMaxInterval = 8;
                 c.halfRateTextureAnimations = true;
-                c.skipWeatherRendering = true;
                 c.reduceCosmeticEntityTicks = true;
                 c.adaptivePerformance = true;
                 c.governorBasePressure = 1;
@@ -51,7 +50,6 @@ public enum ParaMaxPreset {
                 c.blockEntityDistanceCulling = false;
                 c.temporalEntityLod = false;
                 c.halfRateTextureAnimations = false;
-                c.skipWeatherRendering = false;
                 c.reduceCosmeticEntityTicks = false;
             }
         }

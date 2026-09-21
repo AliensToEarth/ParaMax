@@ -32,7 +32,6 @@ public final class ParaMaxConfigScreen extends Screen {
             Toggle.of("paramax.toggle.entity_distance_culling", c -> c.entityDistanceCulling, c -> c.entityDistanceCulling = !c.entityDistanceCulling),
             Toggle.of("paramax.toggle.block_entity_distance_culling", c -> c.blockEntityDistanceCulling, c -> c.blockEntityDistanceCulling = !c.blockEntityDistanceCulling),
             Toggle.of("paramax.toggle.particle_throttling", c -> c.throttleParticles, c -> c.throttleParticles = !c.throttleParticles),
-            Toggle.of("paramax.toggle.skip_weather_rendering", c -> c.skipWeatherRendering, c -> c.skipWeatherRendering = !c.skipWeatherRendering),
             Toggle.of("paramax.toggle.half_rate_texture_animations", c -> c.halfRateTextureAnimations, c -> c.halfRateTextureAnimations = !c.halfRateTextureAnimations),
             Toggle.of("paramax.toggle.reduce_cosmetic_entity_ticks", c -> c.reduceCosmeticEntityTicks, c -> c.reduceCosmeticEntityTicks = !c.reduceCosmeticEntityTicks),
             Toggle.of("paramax.toggle.parallel_entity_visibility", c -> c.parallelEntityVisibility, c -> c.parallelEntityVisibility = !c.parallelEntityVisibility),

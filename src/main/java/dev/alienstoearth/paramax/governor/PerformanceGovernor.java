@@ -18,7 +18,6 @@ public final class PerformanceGovernor {
 
     private static final double[] PARTICLE_FACTOR = {1.0, 0.6, 0.35, 0.25, 0.15};
     private static final double[] ENTITY_DISTANCE_FACTOR = {1.0, 1.0, 0.85, 0.70, 0.55};
-    private static final double[] BLOCK_ENTITY_DISTANCE_FACTOR = {1.0, 1.0, 1.0, 0.80, 0.60};
     private static final int HALF_RATE_ANIMATION_LEVEL = 3;
     private static final double NO_LIMIT = Double.MAX_VALUE;
 
@@ -166,12 +165,5 @@ public final class PerformanceGovernor {
             return NO_LIMIT;
         }
         return cfg.maxEntityRenderDistance * (active(cfg) ? ENTITY_DISTANCE_FACTOR[level.get()] : 1.0);
-    }
-
-    public static double maxBlockEntityRenderDistance(ParaMaxConfig cfg) {
-        if (!cfg.blockEntityDistanceCulling) {
-            return NO_LIMIT;
-        }
-        return cfg.maxBlockEntityRenderDistance * (active(cfg) ? BLOCK_ENTITY_DISTANCE_FACTOR[level.get()] : 1.0);
     }
 }

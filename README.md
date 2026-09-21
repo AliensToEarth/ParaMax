@@ -20,7 +20,7 @@
 - Under the hood there's the less glamorous work that tends to matter most for the consistency: reusing render objects instead of throwing them away and rebuilding them every frame (easier on the garbage collector), spreading some particle, entity, and block-entity work across spare CPU cores, and a handful of optional culling and throttling knobs for the truly nasty scenes. There are also the obvious background savings - dropping your framerate when the window isn't focused, not rebuilding the F3 screen every single frame.
 
 ## 📖 You're in control
-Everything here is a toggle, and the numbers behind it - target FPS, worker threads, culling distances, particle limits, how twitchy the governor is - are all adjustable live from the Mod Menu screen. No digging through JSON. Don't like something? Turn it off. Want the whole thing gone for a moment? There's one switch for that too.
+Everything here is a toggle, and the numbers behind it - target FPS, culling distances, particle limits, how twitchy the governor is - are all adjustable live from the Mod Menu screen. No digging through JSON. Don't like something? Turn it off. Want the whole thing gone for a moment? There's one switch for that too.
 
 ### 🔧 Presets
 Don't want to touch every setting? There are three preset buttons at the top of the config screen:
@@ -41,7 +41,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 |---|---|-------------------------------------------------------------------------------------------------------------------------------|
 | ParaMax Enabled | On | Master switch. Turns everything below off in one click.                                                                       |
 | Frame Pacing | On | Measures what each frame really costs and holds back the fast ones so frames arrive at a steady cadence instead of juddering. |
-| Worker Thread Override | On | Lets you override the size of Minecraft's background thread pool. On by default.                                              |
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
@@ -80,7 +79,6 @@ Presets aren't modes - they just set the same toggles and sliders you can change
 | Entity Cull Distance | 64 blocks | Entities beyond this aren't rendered. |
 | LOD Near Distance | 16 blocks | Entities closer than this always update every frame. |
 | LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
-| Worker Threads | auto | Size of ParaMax's own thread pool. Auto means your core count minus one. |
 | Parallel Entity Threshold | 128 | How many entities before visibility work is spread across cores. |
 ---
 ## 📥 Building from source

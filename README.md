@@ -13,6 +13,7 @@ In case you don't want to touch every setting there are three preset buttons at 
 - **Lossless Defaults** - nothing you can see changes, but the invisible work carries on: **frame pacing** is still smoothing out your frames. So this isn't ParaMax doing nothing - it's doing everything that costs you nothing visually. This is how the mod ships, so a fresh install never changes how your game looks, and the button doubles as your config reset for a mod.
 
 Presets aren't modes - they are just set of the same toggles and sliders you can change yourself. Pick one, then tweak whatever you want. Frame pacing stays on in all of them. Comfertable and smooth gameplay is the whole point.
+
 ---
 ## ✅ Every feature overview
 

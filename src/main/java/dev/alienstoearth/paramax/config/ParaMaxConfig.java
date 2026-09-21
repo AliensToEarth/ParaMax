@@ -30,10 +30,6 @@ public final class ParaMaxConfig {
 
     public double particleMultiplier = 0.6;
 
-    public boolean blockEntityDistanceCulling = false;
-
-    public double maxBlockEntityRenderDistance = 48.0;
-
     public boolean halfRateTextureAnimations = false;
 
     public boolean reduceCosmeticEntityTicks = false;
@@ -45,8 +41,6 @@ public final class ParaMaxConfig {
     public boolean parallelEntityVisibility = true;
 
     public int parallelEntityThreshold = 128;
-
-
 
     public boolean adaptivePerformance = false;
 
@@ -142,7 +136,6 @@ public final class ParaMaxConfig {
         if (maxEntityRenderDistance < 8.0) maxEntityRenderDistance = 8.0;
         if (particleMultiplier < 0.0) particleMultiplier = 0.0;
         if (particleMultiplier > 1.0) particleMultiplier = 1.0;
-        if (maxBlockEntityRenderDistance < 8.0) maxBlockEntityRenderDistance = 8.0;
         if (menuFps < 5) menuFps = 5;
         if (menuFps > 260) menuFps = 260;
         if (parallelEntityThreshold < 32) parallelEntityThreshold = 32;

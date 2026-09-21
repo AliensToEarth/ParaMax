@@ -37,7 +37,6 @@
   "paramax.slider.parallel_entity_threshold": "Порог параллельных сущностей",
   "paramax.slider.worker_threads": "Рабочие потоки",
   "paramax.slider.governor_base_pressure": "Базовое давление регулятора",
-  "paramax.slider.pacing_min_fps": "Мин. FPS для выравнивания",
   "paramax.slider.particle_cull_distance": "Дистанция отсечения частиц",
   "paramax.slider.lod_near_distance": "Ближняя дистанция LOD",
   "paramax.slider.lod_max_interval": "Макс. интервал LOD",

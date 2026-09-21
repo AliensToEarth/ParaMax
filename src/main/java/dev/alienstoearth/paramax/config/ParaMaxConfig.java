@@ -36,9 +36,6 @@ public final class ParaMaxConfig {
 
     public boolean skipWeatherRendering = false;
 
-    public boolean throttleDebugHud = true;
-
-    public int debugHudIntervalMs = 100;
 
     public boolean halfRateTextureAnimations = false;
 
@@ -54,9 +51,6 @@ public final class ParaMaxConfig {
 
     public boolean smartLightmap = false;
 
-    public boolean cacheHudText = true;
-
-    public int hudCacheIntervalMs = 250;
 
     public boolean adaptivePerformance = false;
 
@@ -155,13 +149,9 @@ public final class ParaMaxConfig {
         if (particleMultiplier < 0.0) particleMultiplier = 0.0;
         if (particleMultiplier > 1.0) particleMultiplier = 1.0;
         if (maxBlockEntityRenderDistance < 8.0) maxBlockEntityRenderDistance = 8.0;
-        if (debugHudIntervalMs < 16) debugHudIntervalMs = 16;
-        if (debugHudIntervalMs > 1000) debugHudIntervalMs = 1000;
         if (menuFps < 5) menuFps = 5;
         if (menuFps > 260) menuFps = 260;
         if (parallelEntityThreshold < 32) parallelEntityThreshold = 32;
-        if (hudCacheIntervalMs < 50) hudCacheIntervalMs = 50;
-        if (hudCacheIntervalMs > 2000) hudCacheIntervalMs = 2000;
         if (targetFps < 20) targetFps = 20;
         if (targetFps > 240) targetFps = 240;
         if (governorBasePressure < 0) governorBasePressure = 0;

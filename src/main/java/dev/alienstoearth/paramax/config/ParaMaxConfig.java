@@ -59,8 +59,6 @@ public final class ParaMaxConfig {
 
     public boolean framePacing = true;
 
-    public int pacingMinFps = 30;
-
     public boolean particleCulling = false;
 
     public double maxParticleDistance = 48.0;
@@ -155,8 +153,6 @@ public final class ParaMaxConfig {
         if (targetFps > 240) targetFps = 240;
         if (governorBasePressure < 0) governorBasePressure = 0;
         if (governorBasePressure > 4) governorBasePressure = 4;
-        if (pacingMinFps < 10) pacingMinFps = 10;
-        if (pacingMinFps > 120) pacingMinFps = 120;
         if (maxParticleDistance < 8.0) maxParticleDistance = 8.0;
         if (maxParticleDistance > 512.0) maxParticleDistance = 512.0;
         if (lodNearDistance < 8.0) lodNearDistance = 8.0;

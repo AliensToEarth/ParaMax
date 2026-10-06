@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.util.Mth;
+import net.minecraft.world.TickRateManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -65,6 +66,13 @@ public abstract class ParallelEntityVisibilityMixin {
         double y = cameraPos.y();
         double z = cameraPos.z();
 
+        TickRateManager tickRateManager = this.level.tickRateManager();
+        float[] partialTicks = new float[n];
+        for (int i = 0; i < n; i++) {
+            partialTicks[i] = tickCounter.getGameTimeDeltaPartialTick(
+                    !tickRateManager.isEntityFrozen(entities.get(i)));
+        }
+
         boolean[] visible = new boolean[n];
         int workers = Math.max(1, ParallelEngine.workerCount());
         int stripe = (n + workers - 1) / workers;
@@ -76,7 +84,8 @@ public abstract class ParallelEntityVisibilityMixin {
             futures.add(CompletableFuture.runAsync(() -> {
                 for (int i = lo; i < hi; i++) {
                     try {
-                        visible[i] = this.minecraft.getEntityRenderDispatcher().shouldRender(entities.get(i), frustum, x, y, z);
+                        visible[i] = this.minecraft.getEntityRenderDispatcher().shouldRender(
+                                entities.get(i), frustum, x, y, z, partialTicks[i]);
                     } catch (Throwable t) {
                         visible[i] = true;
                     }
@@ -92,10 +101,10 @@ public abstract class ParallelEntityVisibilityMixin {
 
     @Redirect(method = "isEntityVisible",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z"))
+                    target = "Lnet/minecraft/client/renderer/entity/EntityRenderDispatcher;shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDDF)Z"))
     private boolean paramax$lookup(EntityRenderDispatcher manager, Entity entity, Frustum frustum,
-                                   double x, double y, double z) {
+                                   double x, double y, double z, float partialTick) {
         Boolean cached = this.paramax$visibility.get(entity);
-        return cached != null ? cached : manager.shouldRender(entity, frustum, x, y, z);
+        return cached != null ? cached : manager.shouldRender(entity, frustum, x, y, z, partialTick);
     }
 }

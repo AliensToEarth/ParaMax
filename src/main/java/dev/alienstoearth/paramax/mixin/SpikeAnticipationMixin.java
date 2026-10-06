@@ -23,7 +23,7 @@ public abstract class SpikeAnticipationMixin {
 
     @Inject(method = "handleParticleEvent", at = @At("HEAD"))
     private void paramax$anticipateParticleBurst(ClientboundLevelParticlesPacket packet, CallbackInfo ci) {
-        if (packet.getCount() >= BURST_PARTICLE_COUNT) {
+        if (packet.count() >= BURST_PARTICLE_COUNT) {
             PerformanceGovernor.anticipate();
         }
     }

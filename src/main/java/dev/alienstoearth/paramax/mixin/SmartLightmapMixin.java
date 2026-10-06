@@ -8,6 +8,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightmapRenderStateExtractor;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.effect.MobEffects;
+import org.joml.Vector3fc;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -53,12 +54,14 @@ public abstract class SmartLightmapMixin {
         }
 
         Camera camera = this.minecraft.gameRenderer.mainCamera();
-        int skyColor = camera.attributeProbe()
+        Vector3fc skyColor = camera.attributeProbe()
                 .getValue(EnvironmentAttributes.SKY_LIGHT_COLOR, 1.0F);
         float skyFactor = camera.attributeProbe()
                 .getValue(EnvironmentAttributes.SKY_LIGHT_FACTOR, 1.0F);
 
-        long fingerprint = skyColor;
+        long fingerprint = Float.floatToIntBits(skyColor.x());
+        fingerprint = fingerprint * 31 + Float.floatToIntBits(skyColor.y());
+        fingerprint = fingerprint * 31 + Float.floatToIntBits(skyColor.z());
         fingerprint = fingerprint * 31 + Math.round(skyFactor * 1024.0F);
         fingerprint = fingerprint * 31 + Float.floatToIntBits(world.dimensionType().ambientLight());
         fingerprint = fingerprint * 31 + Math.round(this.minecraft.options.gamma().get().floatValue() * 1024.0F);

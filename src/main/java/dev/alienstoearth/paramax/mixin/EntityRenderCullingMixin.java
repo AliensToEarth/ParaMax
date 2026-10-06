@@ -16,7 +16,7 @@ public class EntityRenderCullingMixin {
     @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
     private void paramax$distanceCull(Entity entity, Frustum frustum,
                                       double cameraX, double cameraY, double cameraZ,
-                                      CallbackInfoReturnable<Boolean> cir) {
+                                      float partialTick, CallbackInfoReturnable<Boolean> cir) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled) {
             return;

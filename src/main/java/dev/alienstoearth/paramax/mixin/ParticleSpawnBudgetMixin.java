@@ -1,37 +1,35 @@
 package dev.alienstoearth.paramax.mixin;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
+import dev.alienstoearth.paramax.governor.ParticleSpawnBudget;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Queue;
 
 @Mixin(ParticleEngine.class)
 public abstract class ParticleSpawnBudgetMixin {
 
-    @Unique private int paramax$spawnedThisTick;
+    @Unique
+    private final ParticleSpawnBudget paramax$budget = new ParticleSpawnBudget();
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void paramax$resetBudget(CallbackInfo ci) {
-        this.paramax$spawnedThisTick = 0;
+        paramax$budget.reset();
     }
 
-    @Redirect(method = "tick",
-            at = @At(value = "INVOKE", target = "Ljava/util/Queue;poll()Ljava/lang/Object;"))
-    private Object paramax$budgetedPoll(Queue<Particle> queue) {
+    @Inject(method = "add(Lnet/minecraft/client/particle/Particle;)V",
+            at = @At("HEAD"), cancellable = true, order = 1100)
+    private void paramax$budgetedAdd(Particle particle, CallbackInfo ci) {
         ParaMaxConfig cfg = ParaMaxConfig.get();
         if (!cfg.enabled || !cfg.budgetParticleSpawns) {
-            return queue.poll();
+            return;
         }
-        if (++this.paramax$spawnedThisTick > cfg.particleSpawnBudget) {
-            return null;
+        if (!paramax$budget.tryAcquire(cfg.particleSpawnBudget)) {
+            ci.cancel();
         }
-        return queue.poll();
     }
 }

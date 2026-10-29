@@ -2,7 +2,10 @@ package dev.alienstoearth.paramax;
 
 import dev.alienstoearth.paramax.config.ParaMaxConfig;
 import dev.alienstoearth.paramax.governor.PerformanceGovernor;
+import dev.alienstoearth.paramax.parallel.BlockEntityStateCache;
+import dev.alienstoearth.paramax.parallel.LevelChangeWatcher;
 import dev.alienstoearth.paramax.parallel.ParallelEngine;
+import dev.alienstoearth.paramax.parallel.TemporalLodCache;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import org.slf4j.Logger;
@@ -19,8 +22,12 @@ public final class ParaMaxClient implements ClientModInitializer {
 
         ParallelEngine.boot();
 
+        LevelChangeWatcher levelChangeWatcher = new LevelChangeWatcher(
+                BlockEntityStateCache::clear, TemporalLodCache::clear);
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ParaMaxState.clientTicks.incrementAndGet();
+            levelChangeWatcher.observe(client.level);
             PerformanceGovernor.tick(client);
         });
 

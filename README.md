@@ -25,8 +25,7 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Frame Pacing | On | Measures what each frame really costs and holds back the fast ones so frames arrive at a steady cadence instead of juddering. |
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
-| Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
-| Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |
+| Particle Spawn Budget | On | Limits how many particles can appear in one tick. Particles over the limit are skipped. |
 
 ### Adaptive
 
@@ -42,7 +41,6 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Entity Distance Culling | Off | Stops rendering entities past a set distance. |
 | Particle Throttling | Off | Keeps only a fraction of particles. |
 | Particle Distance Culling | Off | Skips particles spawning beyond a set distance. |
-| Temporal Entity LOD | Off | Updates distant entities pose and equipment less often. Position still updates every frame, so movement stays smooth. |
 | Half-Rate Texture Animations | Off | Advances animated textures like lava and fire every other tick, so they play at half speed. |
 | Reduce Cosmetic Entity Ticks | Off | Ticks paintings, item frames and leash knots every other tick. |
 
@@ -58,9 +56,6 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Particle Cull Distance | 48 blocks | Particles spawning further away than this are skipped. |
 | Particle Spawn Budget | 4000 | The most particles allowed to appear in a single tick. |
 | Entity Cull Distance | 64 blocks | Entities beyond this aren't rendered. |
-| LOD Near Distance | 16 blocks | Entities closer than this always update every frame. |
-| LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
-| Parallel Entity Threshold | 128 | How many entities before visibility work is spread across cores. |
 ---
 ## 📥 Building from source
 
@@ -72,5 +67,5 @@ cd ParaMax
 ./gradlew build
 ```
 
-The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2.1+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
+The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.3.1+1.21.1.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 

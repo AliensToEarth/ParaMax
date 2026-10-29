@@ -32,6 +32,10 @@ public abstract class TemporalEntityLodMixin {
             return;
         }
 
+        if (this.entityRenderDispatcher.camera == null) {
+            return;
+        }
+
         long frame = ParaMaxState.frames;
         EntityRenderer<?, ?> self = (EntityRenderer<?, ?>) (Object) this;
         TemporalLodCache.Entry entry = TemporalLodCache.get(entity, frame);

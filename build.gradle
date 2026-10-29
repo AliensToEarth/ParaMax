@@ -1,6 +1,7 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.18.0-alpha.16'
     id 'maven-publish'
+    id 'com.modrinth.minotaur' version '2.10.0'
 }
 
 version = "${project.mod_version}+${project.minecraft_version}"
@@ -61,5 +62,20 @@ java {
 jar {
     from("LICENSE") {
         rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+modrinth {
+    projectId = 'paramax'
+    versionType = 'release'
+    uploadFile = jar
+    gameVersions = [project.minecraft_version]
+    loaders = ['fabric']
+    if (project.hasProperty('changelog')) {
+        changelog = project.property('changelog')
+    }
+    dependencies {
+        required.project 'fabric-api'
+        optional.project 'modmenu'
     }
 }

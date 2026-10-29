@@ -25,8 +25,7 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Frame Pacing | On | Measures what each frame really costs and holds back the fast ones so frames arrive at a steady cadence instead of juddering. |
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
-| Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
-| Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |
+| Particle Spawn Budget | On | Limits how many particles can appear in one tick. Particles over the limit are skipped. |
 
 ### Adaptive
 
@@ -60,7 +59,6 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Entity Cull Distance | 64 blocks | Entities beyond this aren't rendered. |
 | LOD Near Distance | 16 blocks | Entities closer than this always update every frame. |
 | LOD Max Interval | 4 | At the furthest range, distant entities refresh their pose every 4th frame. |
-| Parallel Entity Threshold | 128 | How many entities before visibility work is spread across cores. |
 ---
 ## 📥 Building from source
 
@@ -72,5 +70,5 @@ cd ParaMax
 ./gradlew build
 ```
 
-The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2.1+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
+The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.3.1+1.21.3.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 

@@ -26,7 +26,7 @@ Presets aren't modes - they are just set of the same toggles and sliders you can
 | Dynamic FPS | On | Drops to a low framerate the moment the window loses focus.                                                                   |
 | Menu FPS Cap | On | Caps the framerate on the pause menu, which vanilla leaves uncapped.                                                          |
 | Parallel Entity Visibility | On | Works out which entities are on screen across cores before rendering starts.                                                  |
-| Particle Spawn Budget | On | Limits how many particles can appear in one tick. The overflow arrives over the next few ticks rather than being thrown away. |
+| Particle Spawn Budget | On | Limits how many particles can appear in one tick. Particles over the limit are skipped. |
 | Reuse Block Entity States | On | Reuses each chest, sign, beacon etc.'s render data object instead of allocating a new one every frame. Still refreshed every frame, so nothing goes stale. |
 
 ### Adaptive
@@ -73,5 +73,5 @@ cd ParaMax
 ./gradlew build
 ```
 
-The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.2.1+1.21.11.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
+The builded mod jar lands in `build/libs/` as `paramax-<mod_version>+<minecraft_version>.jar` (for example `paramax-1.3.1+1.21.10.jar`); the `-sources.jar` beside it is just the source bundle which you wouldn't need.
 
